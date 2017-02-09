@@ -20,7 +20,7 @@ public class Main {
 //        } else {
 //            staticFiles.location("/public");
 //        }
-
+        //Test commit
         staticFiles.location("/public");
 
         //This will listen to GET requests to /model and return a clean new model
