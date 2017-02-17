@@ -11,6 +11,7 @@
 
 <body>
 
+<div class="gameArea">
 <h1>Place Ships</h1>
 <div id="AircraftcarrierDiv">
     Ship:
@@ -60,7 +61,7 @@
 
 <section id="todoapp" ic-target="this">
     <!--#parse("/velocity/todoList.vm")-->
-    <h1>Yours</h1>
+
     <div id="MyBoard" class="gameBoard">
         <table>
             <tr id="My_Row_1">
@@ -185,8 +186,9 @@
             </tr>
         </table>
     </div>
-    <BR><BR><BR>
-    <H1>Theirs</H1>
+    <div class="controlRegion">
+        <p>Buttons and dialouge should go here</p>
+    </div>
     <div id="TheirBoard" class="gameBoard">
         <table>
             <tr id="My_Row_1">
@@ -373,7 +375,7 @@
         </select>
         <button type="button" onclick="scan()">Scan</button>
     </div>
-
+</div>
 
 
 </section>
