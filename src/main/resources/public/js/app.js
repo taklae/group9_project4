@@ -42,7 +42,7 @@ function fire(){
    console.log($( "#rowFire" ).val());
 //var menuId = $( "ul.nav" ).first().attr( "id" );
    var request = $.ajax({
-     url: "/fire/"+$( "#colFire" ).val()+"/"+$( "#rowFire" ).val(),
+     url: "/fire/"+$( "#rowFire" ).val()+"/"+$( "#colFire" ).val(),
      method: "post",
      data: JSON.stringify(gameModel),
      contentType: "application/json; charset=utf-8",
@@ -66,7 +66,7 @@ function scan(){
    console.log($( "#rowScan" ).val());
 //var menuId = $( "ul.nav" ).first().attr( "id" );
    var request = $.ajax({
-     url: "/scan/"+$( "#colScan" ).val()+"/"+$( "#rowScan" ).val(),
+     url: "/scan/"+$( "#rowScan" ).val()+"/"+$( "#colScan" ).val(),
      method: "post",
      data: JSON.stringify(gameModel),
      contentType: "application/json; charset=utf-8",
@@ -94,10 +94,10 @@ function displayGameState(gameModel){
 $( '#MyBoard td'  ).css("background-color", "blue");
 $( '#TheirBoard td'  ).css("background-color", "blue");
 
-if(gameModel.scanResult){
-alert("Scan found at least one Ship")}
-else{
-alert("Scan found no Ships")}
+if(gameModel.scanResult == 1){
+    alert("Scan found at least one Ship")}
+else if (gameModel.scanResult == 0){
+    alert("Scan found no Ships")}
 
 displayShip(gameModel.aircraftCarrier);
 displayShip(gameModel.battleship);
