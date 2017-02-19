@@ -62,11 +62,11 @@ function fire(){
 }
 
 function scan(){
- console.log($( "#colScan" ).val());
-   console.log($( "#rowScan" ).val());
+ console.log($( "#colFire" ).val());
+   console.log($( "#rowFire" ).val());
 //var menuId = $( "ul.nav" ).first().attr( "id" );
    var request = $.ajax({
-     url: "/scan/"+$( "#rowScan" ).val()+"/"+$( "#colScan" ).val(),
+     url: "/scan/"+$( "#rowFire" ).val()+"/"+$( "#colFire" ).val(),
      method: "post",
      data: JSON.stringify(gameModel),
      contentType: "application/json; charset=utf-8",

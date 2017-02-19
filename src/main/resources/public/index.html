@@ -56,8 +56,37 @@
     <button type="button" onclick="placeShip()">Place</button>
 </div>
 
-
-
+    <h1>Fire:</h1>
+    <div id="FireDiv">
+        Row:
+        <select name="rowFire" id="rowFire">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select>
+        Column:
+        <select name="colFire" id="colFire">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select>
+        <button type="button" onclick="fire()">Fire</button>
+        <button type="button" onclick="scan()">Scan</button>
+    </div>
 
 <section id="todoapp" ic-target="this">
     <!--#parse("/velocity/todoList.vm")-->
@@ -313,69 +342,6 @@
             </tr>
         </table>
     </div>
-
-    <h1>Fire:</h1>
-    <div id="FireDiv">
-        Row:
-        <select name="rowFire" id="rowFire">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-        </select>
-        Column:
-        <select name="colFire" id="colFire">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-        </select>
-        <button type="button" onclick="fire()">Fire</button>
-    </div>
-
-    <h1>Scan:</h1>
-    <div id="ScanDiv">
-        Row:
-        <select name="rowFire" id="rowScan">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-        </select>
-        Column:
-        <select name="colFire" id="colScan">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-        </select>
-        <button type="button" onclick="scan()">Scan</button>
-    </div>
-</div>
 
 
 </section>
