@@ -117,10 +117,16 @@ $( '#MyBoard td'  ).css("background-color", "blue");
 $( '#TheirBoard td'  ).css("background-color", "blue");
 
 if(gameModel.scanResult == 1){
-    alert("Scan found at least one Ship")}
-else if (gameModel.scanResult == 0){
-    alert("Scan found no Ships")}
+    alert("Scan found at least one Ship");
+} else if (gameModel.scanResult == 0){
+    alert("Scan found no Ships");
+}
 
+if(gameModel.isGameOver == 1) {
+    alert("Player wins!");
+} else if (gameModel.isGameOver == 2){
+    alert("Computer wins!");
+}
 displayShip(gameModel.aircraftCarrier);
 displayShip(gameModel.battleship);
 displayShip(gameModel.cruiser);
