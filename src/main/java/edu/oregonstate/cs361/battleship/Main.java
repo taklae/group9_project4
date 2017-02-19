@@ -52,6 +52,7 @@ public class Main {
         String row = req.params("row");
         String col = req.params("col");
         String orientation = req.params("orientation");
+        currModel.scanResult = 2;
         currModel = currModel.placeShip(id,row,col,orientation);
         Gson gson = new Gson();
         return gson.toJson(currModel);
@@ -64,9 +65,11 @@ public class Main {
         String col = req.params("col");
         int rowInt = Integer.parseInt(row);
         int colInt = Integer.parseInt(col);
+        currModel.scanResult = 2;
         currModel.shootAtComputer(rowInt,colInt);
         currModel.shootAtPlayer();
         Gson gson = new Gson();
+        System.out.print(gson.toJson(currModel));
         return gson.toJson(currModel);
     }
 
