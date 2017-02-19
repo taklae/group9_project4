@@ -53,7 +53,15 @@ public class Main {
         String col = req.params("col");
         String orientation = req.params("orientation");
         currModel.scanResult = 2;
+
+        if(id.equals("random"))
+        {
+            currModel.RandShips();
+            //currModel.printf();
+        }
+        else
         currModel = currModel.placeShip(id,row,col,orientation);
+
         Gson gson = new Gson();
         return gson.toJson(currModel);
     }
