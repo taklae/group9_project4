@@ -121,11 +121,11 @@ if(gameModel.scanResult == 1){
 else if (gameModel.scanResult == 0){
     alert("Scan found no Ships")}
 
-displayShip(gameModel.aircraftCarrier,"AC");
-displayShip(gameModel.battleship,"BS");
-displayShip(gameModel.cruiser,"CS");
-displayShip(gameModel.destroyer,"DT");
-displayShip(gameModel.submarine,"SM");
+displayShip(gameModel.aircraftCarrier);
+displayShip(gameModel.battleship);
+displayShip(gameModel.cruiser);
+displayShip(gameModel.destroyer);
+displayShip(gameModel.submarine);
 
 for (var i = 0; i < gameModel.computerMisses.length; i++) {
    $( '#TheirBoard #' + gameModel.computerMisses[i].Across + '_' + gameModel.computerMisses[i].Down ).css("background-color", "green");
@@ -153,11 +153,6 @@ function displayShip(ship, name){
  endCoordAcross = ship.end.Across;
  endCoordDown = ship.end.Down;
 
- console.log(name);
- console.log(startCoordAcross);
- console.log(startCoordDown);
- console.log(endCoordAcross);
- console.log(endCoordDown);
  if(startCoordAcross > 0){
     if(startCoordAcross == endCoordAcross){
         for (i = startCoordDown; i <= endCoordDown; i++) {

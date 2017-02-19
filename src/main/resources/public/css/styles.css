@@ -4,11 +4,37 @@ body {
     padding: 0;
 }
 
-.gameArea{
+header {
+    width:100%;
+     display: inline-block;
+     padding-bottom: 1%;
+     padding-top: 3%;
+ }
+  .gameArea{
+    text-align: center;
+     display: block;
+ }
 
-text-align: center;
+ .toolbar {
+     display: block;
 
-}
+ }
+
+ #Pboard{
+     float: left;
+     padding-left: 22%;
+ }
+
+ #Oboard{
+    float: right;
+     padding-right: 19%;
+ }
+
+ +#AircraftcarrierDiv {
+   float: left;
+   padding-left: 11.5%;
+   padding-right: 18.5%;
+  }
 
 .gameBoard{
 /*with:100px;
