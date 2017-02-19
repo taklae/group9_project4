@@ -18,16 +18,17 @@ public class BattleshipModel {
 
     private Ship computer_aircraftCarrier = new Ship("Computer_AircraftCarrier",5, new Coordinate(2,2),new Coordinate(2,6));
     private Ship computer_battleship = new Ship("Computer_Battleship",4, new Coordinate(2,8),new Coordinate(5,8));
-    private Ship computer_cruiser = new Ship("Computer_Cruiser",3, new Coordinate(4,1),new Coordinate(3,4));
+    private Ship computer_cruiser = new Ship("Computer_Cruiser",3, new Coordinate(4,1),new Coordinate(4,3));
     private Ship computer_destroyer = new Ship("Computer_Destroyer",2, new Coordinate(7,3),new Coordinate(7,4));
     private Ship computer_submarine = new Ship("Computer_Submarine",2, new Coordinate(9,6),new Coordinate(9,7));
 
     ArrayList<Coordinate> playerHits;
-    private ArrayList<Coordinate> playerMisses;
+    ArrayList<Coordinate> playerMisses;
     ArrayList<Coordinate> computerHits;
-    private ArrayList<Coordinate> computerMisses;
+    ArrayList<Coordinate> computerMisses;
 
     int scanResult = 0;
+    int isGameOver = 0;
 
     public BattleshipModel() {
         playerHits = new ArrayList<>();
@@ -278,4 +279,13 @@ public class BattleshipModel {
         System.out.print("\n");
     }
 
+    public int checkWin(List<Coordinate> phits, List<Coordinate> chits) {
+        if (phits.size() == 16) {
+            return 1;
+        } else if (chits.size() == 16) {
+            return 2;
+        } else {
+            return 0;
+        }
+    }
 }

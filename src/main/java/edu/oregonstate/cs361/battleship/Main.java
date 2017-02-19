@@ -2,7 +2,7 @@ package edu.oregonstate.cs361.battleship;
 
 import com.google.gson.Gson;
 import spark.Request;
-
+import java.util.List;
 import java.io.UnsupportedEncodingException;
 
 import static spark.Spark.get;
@@ -73,10 +73,14 @@ public class Main {
         int rowInt = Integer.parseInt(row);
         int colInt = Integer.parseInt(col);
         currModel.scanResult = 2;
-        currModel.shootAtComputer(rowInt,colInt);
+        Coordinate fire = new Coordinate(colInt, rowInt);
+        if (! checkRepeatFire(fire, currModel.computerHits, currModel.computerMisses)) {
+            currModel.shootAtComputer(rowInt, colInt);
+        }
+        currModel.isGameOver = currModel.checkWin(currModel.computerHits, currModel.playerHits);
         currModel.shootAtPlayer();
         Gson gson = new Gson();
-        System.out.print(gson.toJson(currModel));
+        //System.out.println(gson.toJson(currModel));
         return gson.toJson(currModel);
     }
 
@@ -94,6 +98,16 @@ public class Main {
         return gson.toJson(currModel);
     }
 
-
+    static boolean checkRepeatFire(Coordinate cord, List<Coordinate> hit, List<Coordinate> miss) {
+        for (Coordinate aHit : hit) {
+            if (cord.getAcross() == aHit.getDown() && cord.getDown() == aHit.getAcross())
+                return true;
+        }
+        for (Coordinate aMiss : miss) {
+            if (cord.getAcross() == aMiss.getDown() && cord.getDown() == aMiss.getAcross())
+                return true;
+        }
+        return false;
+    }
 
 }
