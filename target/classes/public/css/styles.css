@@ -12,11 +12,11 @@ header {
  }
   .gameArea{
     text-align: center;
-     display: block;
+      display: block;
  }
 
  .toolbar {
-     display: block;
+     display: inline-blockblock;
 
  }
 
@@ -30,11 +30,15 @@ header {
      padding-right: 19%;
  }
 
- +#AircraftcarrierDiv {
+#AircraftcarrierDiv {
    float: left;
    padding-left: 11.5%;
    padding-right: 18.5%;
   }
+
+#FireDiv {
+    float: left;
+}
 
 .gameBoard{
 /*with:100px;

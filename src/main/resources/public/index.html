@@ -21,48 +21,48 @@
 <div class="toolbar">
 
 
-<div id="AircraftcarrierDiv">
-    Ship:
-    <select name="shipSelec" id="shipSelec">
-        <option value="aircraftCarrier">Aircraft Carrier</option>
-        <option value="battleship">Battleship</option>
-        <option value="cruiser">Cruiser</option>
-        <option value="destroyer">Destroyer</option>
-        <option value="submarine">Submarine</option>
-    </select>
-    Row:
-    <select name="rowSelec" id="rowSelec">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
-    </select>
-    Column:
-    <select name="colSelec" id="colSelec">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
-    </select>
-    Orientation:
-    <select name="orientationSelec" id="orientationSelec">
-        <option value="horizontal">horizontal</option>
-        <option value="vertical">vertical</option>
-    </select>
-    <button type="button" onclick="placeShip()">Place</button>
-</div>
+    <div id="AircraftcarrierDiv">
+        Ship:
+        <select name="shipSelec" id="shipSelec">
+            <option value="aircraftCarrier">Aircraft Carrier</option>
+            <option value="battleship">Battleship</option>
+            <option value="cruiser">Cruiser</option>
+            <option value="destroyer">Destroyer</option>
+            <option value="submarine">Submarine</option>
+        </select>
+        Row:
+        <select name="rowSelec" id="rowSelec">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select>
+        Column:
+        <select name="colSelec" id="colSelec">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select>
+        Orientation:
+        <select name="orientationSelec" id="orientationSelec">
+            <option value="horizontal">horizontal</option>
+            <option value="vertical">vertical</option>
+        </select>
+        <button type="button" onclick="placeShip()">Place</button>
+    </div>
 
     <div id="FireDiv">
         Row:
@@ -98,7 +98,7 @@
 
 <div class="gameArea">
 
-<section id="todoapp" ic-target="this">
+<div id="todoapp" ic-target="this">
     <!--#parse("/velocity/todoList.vm")-->
 
     <div id="MyBoard" class="gameBoard">
@@ -352,7 +352,7 @@
             </tr>
         </table>
     </div>
-
+</div>
 
 </section>
 </body>

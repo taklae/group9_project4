@@ -240,17 +240,9 @@ public class BattleshipModel {
             }
 
 
-            //records the starting and ending corddinates for each ship
+            //records the starting and ending coordinates for each ship
             if(k==0){
                 this.getShip("submarine").setLocation(new Coordinate(StartCord[0]+1,StartCord[1]+1),new Coordinate(EndCord[0]+1,EndCord[1]+1));
-                /*System.out.print(StartCord[0]+1);
-                System.out.print(StartCord[1]+1);
-                System.out.print("\n");
-                System.out.print(EndCord[0]+1);
-                System.out.print(EndCord[1]+1);
-                System.out.print("\n");
-                //SubmarineCordsStart=StartCord.clone();
-                //SubmarineCordsEnd=EndCord.clone();*/
             }
             else if(k==1){
                 this.getShip("destroyer").setLocation(new Coordinate(StartCord[0]+1,StartCord[1]+1),new Coordinate(EndCord[0]+1,EndCord[1]+1));

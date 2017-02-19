@@ -58,9 +58,8 @@ public class Main {
         {
             currModel.RandShips();
             //currModel.printf();
-        }
-        else
-        currModel = currModel.placeShip(id,row,col,orientation);
+        } else
+            currModel = currModel.placeShip(id,row,col,orientation);
 
         Gson gson = new Gson();
         return gson.toJson(currModel);
