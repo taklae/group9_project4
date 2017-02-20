@@ -1,5 +1,4 @@
 package edu.oregonstate.cs361.battleship;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -9,6 +8,9 @@ import java.util.Random;
  */
 public class BattleshipModel {
 
+    int[][] board = new int[10][10];
+    int AllShipsPlaced=0;
+
     private Ship aircraftCarrier = new Ship("AircraftCarrier",5, new Coordinate(0,0),new Coordinate(0,0));
     private Ship battleship = new Ship("Battleship",4, new Coordinate(0,0),new Coordinate(0,0));
     private Ship cruiser = new Ship("Cruiser",3, new Coordinate(0,0),new Coordinate(0,0));
@@ -17,18 +19,17 @@ public class BattleshipModel {
 
     private Ship computer_aircraftCarrier = new Ship("Computer_AircraftCarrier",5, new Coordinate(2,2),new Coordinate(2,6));
     private Ship computer_battleship = new Ship("Computer_Battleship",4, new Coordinate(2,8),new Coordinate(5,8));
-    private Ship computer_cruiser = new Ship("Computer_Cruiser",3, new Coordinate(4,1),new Coordinate(3,4));
+    private Ship computer_cruiser = new Ship("Computer_Cruiser",3, new Coordinate(4,1),new Coordinate(4,3));
     private Ship computer_destroyer = new Ship("Computer_Destroyer",2, new Coordinate(7,3),new Coordinate(7,4));
     private Ship computer_submarine = new Ship("Computer_Submarine",2, new Coordinate(9,6),new Coordinate(9,7));
 
     ArrayList<Coordinate> playerHits;
-    private ArrayList<Coordinate> playerMisses;
+    ArrayList<Coordinate> playerMisses;
     ArrayList<Coordinate> computerHits;
-    private ArrayList<Coordinate> computerMisses;
+    ArrayList<Coordinate> computerMisses;
 
     int scanResult = 0;
-
-
+    int isGameOver = 0;
 
     public BattleshipModel() {
         playerHits = new ArrayList<>();
@@ -116,7 +117,10 @@ public class BattleshipModel {
 
     void playerShot(Coordinate coor) {
         if(playerMisses.contains(coor)){
-            System.out.println("Dupe");
+            return;
+        }
+        if(playerHits.contains(coor)){
+            return;
         }
 
         if(aircraftCarrier.covers(coor)){
@@ -156,5 +160,137 @@ public class BattleshipModel {
 
     public int getScanResult() {
         return scanResult;
+    }
+
+    public void  RandShips() {
+        int lengths[] = {2, 2, 3, 4, 5};
+
+        for (int k = 0; k < 5; k++) {
+
+            int xcord = 0;
+            int ycord = 0;
+            int orientation = 0;
+            int overlap = 0;
+            int counter = 0;
+            int size= lengths[k];
+            int[] StartCord=new int[2];
+            int[] EndCord=new int[2];
+
+            Random rand = new Random();
+            boolean crash = true;
+            boolean sameloc = true;
+
+            while (crash) {
+                overlap = 0;
+                if (counter == 0)
+                    orientation = rand.nextInt(1) + 1;
+                else if (counter == 2) {
+                    counter = 0;
+                    orientation = rand.nextInt(1) + 1;
+                    sameloc = true;
+                }
+                else
+                    orientation++;
+
+
+                while (sameloc) {
+                    xcord = rand.nextInt(9);
+                    ycord = rand.nextInt(9);
+
+                    if (board[xcord][ycord] == 0)
+                        sameloc = false;
+                }
+
+                //horizontal right orientation check
+                if (orientation %2 == 0) {
+                    if ((ycord + size) <= 9) {
+                        for (int i = ycord; i < (ycord + size); i++) {
+                            if (board[xcord][i] == 1)
+                                overlap = 1;
+                        }
+
+                        if (overlap == 0) {
+                            for (int i = ycord; i < (ycord + size); i++) {
+                                board[xcord][i] = 1;
+                                EndCord[0]=xcord;
+                                EndCord[1]=i;
+                            }
+                            crash = false;
+                        }
+                    }
+                }
+
+                //vertical down orientation check
+                if (orientation % 2 == 1) {
+                    if ((xcord + size) <= 9) {
+                        for (int i = xcord; i < (xcord + size); i++) {
+                            if (board[i][ycord] == 1)
+                                overlap = 1;
+                        }
+
+                        if (overlap == 0) {
+                            for (int i = xcord; i < (xcord + size); i++) {
+                                board[i][ycord] = 1;
+                                EndCord[0]=i;
+                                EndCord[1]=ycord;
+                            }
+                            crash = false;
+                        }
+                    }
+                }
+
+                counter++;
+                StartCord[0]=xcord;
+                StartCord[1]=ycord;
+            }
+
+
+            //records the starting and ending coordinates for each ship
+            if(k==0){
+                this.getShip("submarine").setLocation(new Coordinate(StartCord[0]+1,StartCord[1]+1),new Coordinate(EndCord[0]+1,EndCord[1]+1));
+            }
+            else if(k==1){
+                this.getShip("destroyer").setLocation(new Coordinate(StartCord[0]+1,StartCord[1]+1),new Coordinate(EndCord[0]+1,EndCord[1]+1));
+            }
+            else if(k==2){
+                this.getShip("Cruiser").setLocation(new Coordinate(StartCord[0]+1,StartCord[1]+1),new Coordinate(EndCord[0]+1,EndCord[1]+1));
+            }
+            else if(k==3){
+                this.getShip("battleship").setLocation(new Coordinate(StartCord[0]+1,StartCord[1]+1),new Coordinate(EndCord[0]+1,EndCord[1]+1));
+            }
+            else if(k==4){
+                this.getShip("aircraftcarrier").setLocation(new Coordinate(StartCord[0]+1,StartCord[1]+1),new Coordinate(EndCord[0]+1,EndCord[1]+1));
+                AllShipsPlaced=1;
+            }
+        }
+    }
+
+    public void printf() {
+        for (int x = 0; x < 10; x++) {
+            for (int y = 0; y < 10; y++) {
+                System.out.print(board[x][y]);
+            }
+            System.out.print("\n");
+        }
+        System.out.print(submarine);
+        System.out.print("\n");
+        System.out.print(destroyer);
+        System.out.print("\n");
+        System.out.print(cruiser);
+        System.out.print("\n");
+        System.out.print(battleship);
+        System.out.print("\n");
+        System.out.print(aircraftCarrier);
+        System.out.print("\n");
+    }
+
+    public int checkWin(List<Coordinate> phits, List<Coordinate> chits) {
+        if (phits.size() == 16) {
+            return 1;
+        } else if (chits.size() == 16) {
+            return 2;
+        } else {
+            return 0;
+        }
     }
 }

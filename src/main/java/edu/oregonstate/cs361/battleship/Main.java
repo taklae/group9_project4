@@ -2,7 +2,7 @@ package edu.oregonstate.cs361.battleship;
 
 import com.google.gson.Gson;
 import spark.Request;
-
+import java.util.List;
 import java.io.UnsupportedEncodingException;
 
 import static spark.Spark.get;
@@ -53,7 +53,14 @@ public class Main {
         String col = req.params("col");
         String orientation = req.params("orientation");
         currModel.scanResult = 2;
-        currModel = currModel.placeShip(id,row,col,orientation);
+
+        if(id.equals("random"))
+        {
+            if(currModel.AllShipsPlaced==0)
+                currModel.RandShips();
+        } else
+            currModel = currModel.placeShip(id,row,col,orientation);
+
         Gson gson = new Gson();
         return gson.toJson(currModel);
     }
@@ -66,16 +73,19 @@ public class Main {
         int rowInt = Integer.parseInt(row);
         int colInt = Integer.parseInt(col);
         currModel.scanResult = 2;
-        currModel.shootAtComputer(rowInt,colInt);
+        Coordinate fire = new Coordinate(colInt, rowInt);
+        if (! checkRepeatFire(fire, currModel.computerHits, currModel.computerMisses)) {
+            currModel.shootAtComputer(rowInt, colInt);
+        }
+        currModel.isGameOver = currModel.checkWin(currModel.computerHits, currModel.playerHits);
         currModel.shootAtPlayer();
         Gson gson = new Gson();
-        System.out.print(gson.toJson(currModel));
+        //System.out.println(gson.toJson(currModel));
         return gson.toJson(currModel);
     }
 
 
     private static String scan(Request req) {
-
         BattleshipModel currModel = getModelFromReq(req);
         String row = req.params("row");
         String col = req.params("col");
@@ -87,6 +97,16 @@ public class Main {
         return gson.toJson(currModel);
     }
 
-
+    static boolean checkRepeatFire(Coordinate cord, List<Coordinate> hit, List<Coordinate> miss) {
+        for (Coordinate aHit : hit) {
+            if (cord.getAcross() == aHit.getDown() && cord.getDown() == aHit.getAcross())
+                return true;
+        }
+        for (Coordinate aMiss : miss) {
+            if (cord.getAcross() == aMiss.getDown() && cord.getDown() == aMiss.getAcross())
+                return true;
+        }
+        return false;
+    }
 
 }
