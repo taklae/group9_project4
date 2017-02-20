@@ -122,11 +122,17 @@ if(gameModel.scanResult == 1){
     alert("Scan found no Ships");
 }
 
+if(gameModel.AllShipsPlaced>1)
+{
+    alert("all ships have already been placed");
+}
+
 if(gameModel.isGameOver == 1) {
     alert("Player wins!");
 } else if (gameModel.isGameOver == 2){
     alert("Computer wins!");
 }
+
 displayShip(gameModel.aircraftCarrier);
 displayShip(gameModel.battleship);
 displayShip(gameModel.cruiser);
