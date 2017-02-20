@@ -87,6 +87,22 @@ table, th, td {
 background-color: orange;
 }
 
+button{
+    background-color:  #e7e7e7;
+    color: black;
+    border: none;
+    padding: 5
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 3px;
+    border: none;
+}
+
+button:hover {
+
+    font-weight: bold;
+}
 /*
 button {
     margin: 0;
