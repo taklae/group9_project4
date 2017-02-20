@@ -9,6 +9,28 @@ $( document ).ready(function() {
    });
 });
 
+function NewGame(){
+
+    var request = $.ajax({
+         url: "/newGame",
+         method: "post",
+         data: JSON.stringify(gameModel),
+         contentType: "application/json; charset=utf-8",
+         dataType: "json"
+       });
+
+       request.done(function( currModel ) {
+         displayGameState(currModel);
+         gameModel = currModel;
+
+       });
+
+       request.fail(function( jqXHR, textStatus ) {
+         alert( "Request failed: " + textStatus );
+       });
+
+}
+
 function RandPlaceShips(){
     console.log("randomized ships");
     var request = $.ajax({
