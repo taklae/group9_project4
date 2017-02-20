@@ -23,7 +23,7 @@ public class Main {
         post("/scan/:row/:col", (req, res) -> scan(req));
         //This will listen to POST requests and expects to receive a game model, as well as location to place the ship
         post("/placeShip/:id/:row/:col/:orientation", (req, res) -> placeShip(req));
-
+        //This will listen to POST requests for a new game, and then return a clean model
         post("/newGame", (req, res) -> newModel());
 
     }
