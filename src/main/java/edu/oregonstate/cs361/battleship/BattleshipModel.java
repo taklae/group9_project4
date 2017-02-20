@@ -28,7 +28,7 @@ public class BattleshipModel {
     ArrayList<Coordinate> computerHits;
     ArrayList<Coordinate> computerMisses;
 
-    int scanResult = 0;
+    int scanResult = 2;
     int isGameOver = 0;
 
     public BattleshipModel() {
