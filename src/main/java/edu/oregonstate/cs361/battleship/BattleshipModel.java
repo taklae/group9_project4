@@ -117,7 +117,10 @@ public class BattleshipModel {
 
     void playerShot(Coordinate coor) {
         if(playerMisses.contains(coor)){
-            System.out.println("Dupe");
+            return;
+        }
+        if(playerHits.contains(coor)){
+            return;
         }
 
         if(aircraftCarrier.covers(coor)){
