@@ -45,6 +45,38 @@ public class Main {
         return modelFromReq;
     }
 
+    private static boolean checkPlace(Request req){
+        String id = req.params("id");
+        String row = req.params("row");
+        String col = req.params("col");
+        String orientation = req.params("orientation");
+
+        int length = 1;
+        System.out.println(id);
+        if(id.equals("aircraftCarrier"))
+            length = 5;
+        else if (id.equals("battleship"))
+            length = 4;
+        else if(id.equals("cruiser"))
+            length = 3;
+        else
+            length = 2;
+
+        System.out.println(length);
+        if(orientation.equals("vertical")  && length + Integer.parseInt(row) > 10)
+            return false;
+        else if(orientation.equals("horizontal") && length + Integer.parseInt(col) > 10)
+            return false;
+
+        if(orientation.equals("vertical")){
+            Coordinate tiles= new Coordinate();
+        }else{
+
+        }
+
+        return true;
+    }
+
     //This controller
     private static String placeShip(Request req) {
         BattleshipModel currModel = getModelFromReq(req);
@@ -54,11 +86,12 @@ public class Main {
         String orientation = req.params("orientation");
         currModel.scanResult = 2;
 
-        if(id.equals("random"))
-        {
-            if(currModel.AllShipsPlaced==0)
-                currModel.RandShips();
-        } else
+        if(checkPlace(req) ==  false)
+            currModel.validPlace = 1;
+
+        if(id.equals("random") && currModel.AllShipsPlaced == 0)
+            currModel.RandShips();
+        else if(currModel.AllShipsPlaced == 0 && currModel.validPlace != 1)
             currModel = currModel.placeShip(id,row,col,orientation);
 
         Gson gson = new Gson();
