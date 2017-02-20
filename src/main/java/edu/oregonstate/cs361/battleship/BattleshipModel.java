@@ -30,6 +30,7 @@ public class BattleshipModel {
 
     int scanResult = 2;
     int isGameOver = 0;
+    int validPlace = 0;
 
     public BattleshipModel() {
         playerHits = new ArrayList<>();
