@@ -10,6 +10,7 @@
 <script src="/js/app.js"></script>
 
 <body>
+<div class="gameArea">
     <h1 class="title">Battleship</h1>
 <div class ="header">
     <div id="Pboard">
@@ -92,12 +93,12 @@
             <option value="9">9</option>
             <option value="10">10</option>
         </select>
-        <button type="button" class="fireB" onclick="fire()">Fire</button>
-        <button type="button" class="scanB" onclick="scan()">Scan</button>
+        <button type="button" class="fireB" style="background-color:#ff5349;" onclick="fire()">Fire</button>
+        <button type="button" class="scanB" style="background-color:#FFFF00;"onclick="scan()">Scan</button>
     </div>
 </div>
 
-<div class="gameArea">
+
 
 <div id="todoapp" ic-target="this">
     <!--#parse("/velocity/todoList.vm")-->
@@ -228,6 +229,7 @@
     </div>
     <div class="controlRegion">
         <button type="button" onclick="RandPlaceShips()">Randomize</button>
+        <button type="button" style="margin-top:20px;", onclick="NewGame()">New Game</button>
     </div>
     <div id="TheirBoard" class="gameBoard">
         <table>
@@ -353,6 +355,7 @@
             </tr>
         </table>
     </div>
+</div>
 </div>
 
 </section>

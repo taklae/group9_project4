@@ -23,6 +23,9 @@ public class Main {
         post("/scan/:row/:col", (req, res) -> scan(req));
         //This will listen to POST requests and expects to receive a game model, as well as location to place the ship
         post("/placeShip/:id/:row/:col/:orientation", (req, res) -> placeShip(req));
+        //This will listen to POST requests for a new game, and then return a clean model
+        post("/newGame", (req, res) -> newModel());
+
     }
 
     //This function returns a new model
@@ -68,12 +71,13 @@ public class Main {
         else if(orientation.equals("horizontal") && length + Integer.parseInt(col) > 10)
             return false;
 
+        /*
         if(orientation.equals("vertical")){
             Coordinate tiles= new Coordinate();
         }else{
 
         }
-
+        */
         return true;
     }
 
@@ -110,10 +114,9 @@ public class Main {
         if (! checkRepeatFire(fire, currModel.computerHits, currModel.computerMisses)) {
             currModel.shootAtComputer(rowInt, colInt);
         }
-        currModel.isGameOver = currModel.checkWin(currModel.computerHits, currModel.playerHits);
         currModel.shootAtPlayer();
+        currModel.isGameOver = currModel.checkWin(currModel.computerHits, currModel.playerHits);
         Gson gson = new Gson();
-        //System.out.println(gson.toJson(currModel));
         return gson.toJson(currModel);
     }
 
