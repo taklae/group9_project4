@@ -108,30 +108,30 @@ public class BattleshipModel {
         int max = 10;
         int min = 1;
         Random random = new Random();
+
         int randRow = random.nextInt(max - min + 1) + min;
         int randCol = random.nextInt(max - min + 1) + min;
+        Coordinate coor = new Coordinate(randCol,randRow);
 
-        Coordinate coor = new Coordinate(randRow,randCol);
+        while (checkRepeatFire(coor)) {
+            randRow = random.nextInt(max - min + 1) + min;
+            randCol = random.nextInt(max - min + 1) + min;
+            coor.setAcross(randCol);
+            coor.setDown(randRow);
+        }
         playerShot(coor);
     }
 
     void playerShot(Coordinate coor) {
-        if(playerMisses.contains(coor)){
-            return;
-        }
-        if(playerHits.contains(coor)){
-            return;
-        }
-
-        if(aircraftCarrier.covers(coor)){
+        if (aircraftCarrier.covers(coor)) {
             playerHits.add(coor);
-        }else if (battleship.covers(coor)){
+        } else if (battleship.covers(coor)) {
             playerHits.add(coor);
-        }else if (cruiser.covers(coor)){
+        } else if (cruiser.covers(coor)) {
             playerHits.add(coor);
-        }else if (destroyer.covers(coor)){
+        } else if (destroyer.covers(coor)) {
             playerHits.add(coor);
-        }else if (submarine.covers(coor)){
+        } else if (submarine.covers(coor)) {
             playerHits.add(coor);
         } else {
             playerMisses.add(coor);
@@ -292,5 +292,17 @@ public class BattleshipModel {
         } else {
             return 0;
         }
+    }
+
+    public boolean checkRepeatFire(Coordinate coor){
+        for (Coordinate aHit : playerHits) {
+            if (coor.getDown() == aHit.getDown() && coor.getAcross() == aHit.getAcross())
+                return true;
+        }
+        for (Coordinate aMiss : playerMisses) {
+            if (coor.getDown() == aMiss.getDown() && coor.getAcross() == aMiss.getAcross())
+                return true;
+        }
+        return false;
     }
 }
