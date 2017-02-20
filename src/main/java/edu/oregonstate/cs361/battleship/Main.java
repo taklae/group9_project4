@@ -80,10 +80,9 @@ public class Main {
         if (! checkRepeatFire(fire, currModel.computerHits, currModel.computerMisses)) {
             currModel.shootAtComputer(rowInt, colInt);
         }
-        currModel.isGameOver = currModel.checkWin(currModel.computerHits, currModel.playerHits);
         currModel.shootAtPlayer();
+        currModel.isGameOver = currModel.checkWin(currModel.computerHits, currModel.playerHits);
         Gson gson = new Gson();
-        //System.out.println(gson.toJson(currModel));
         return gson.toJson(currModel);
     }
 
