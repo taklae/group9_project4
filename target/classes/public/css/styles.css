@@ -7,6 +7,14 @@ html,
 body {
     margin: 0;
     padding: 0;
+    background-color:black;
+    color:white;
+}
+
+.title{
+    text-align:center;
+    margin-bottom:0;
+    font-size:50px;
 }
 
 h1 {

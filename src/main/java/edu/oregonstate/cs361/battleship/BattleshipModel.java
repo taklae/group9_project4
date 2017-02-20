@@ -9,6 +9,7 @@ import java.util.Random;
 public class BattleshipModel {
 
     int[][] board = new int[10][10];
+    int AllShipsPlaced=0;
 
     private Ship aircraftCarrier = new Ship("AircraftCarrier",5, new Coordinate(0,0),new Coordinate(0,0));
     private Ship battleship = new Ship("Battleship",4, new Coordinate(0,0),new Coordinate(0,0));
@@ -259,6 +260,7 @@ public class BattleshipModel {
             }
             else if(k==4){
                 this.getShip("aircraftcarrier").setLocation(new Coordinate(StartCord[0]+1,StartCord[1]+1),new Coordinate(EndCord[0]+1,EndCord[1]+1));
+                AllShipsPlaced=1;
             }
         }
     }
