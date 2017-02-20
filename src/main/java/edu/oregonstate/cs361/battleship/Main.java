@@ -56,8 +56,8 @@ public class Main {
 
         if(id.equals("random"))
         {
-            currModel.RandShips();
-            //currModel.printf();
+            if(currModel.AllShipsPlaced==0)
+                currModel.RandShips();
         } else
             currModel = currModel.placeShip(id,row,col,orientation);
 
@@ -86,7 +86,6 @@ public class Main {
 
 
     private static String scan(Request req) {
-
         BattleshipModel currModel = getModelFromReq(req);
         String row = req.params("row");
         String col = req.params("col");
