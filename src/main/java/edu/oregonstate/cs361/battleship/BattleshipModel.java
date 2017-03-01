@@ -306,4 +306,18 @@ public class BattleshipModel {
         }
         return false;
     }
+
+
+    static boolean checkRepeatFire(Coordinate cord, List<Coordinate> hit, List<Coordinate> miss) {
+        for (Coordinate aHit : hit) {
+            if (cord.getAcross() == aHit.getDown() && cord.getDown() == aHit.getAcross())
+                return true;
+        }
+        for (Coordinate aMiss : miss) {
+            if (cord.getAcross() == aMiss.getDown() && cord.getDown() == aMiss.getAcross())
+                return true;
+        }
+        return false;
+    }
+
 }

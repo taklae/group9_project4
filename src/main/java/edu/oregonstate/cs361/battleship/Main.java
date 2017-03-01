@@ -70,7 +70,7 @@ public class Main {
             return false;
         else if(orientation.equals("horizontal") && length + Integer.parseInt(col) > 10)
             return false;
-        
+
         return true;
     }
 
@@ -104,7 +104,7 @@ public class Main {
         int colInt = Integer.parseInt(col);
         currModel.scanResult = 2;
         Coordinate fire = new Coordinate(colInt, rowInt);
-        if (! checkRepeatFire(fire, currModel.computerHits, currModel.computerMisses)) {
+        if (! currModel.checkRepeatFire(fire, currModel.computerHits, currModel.computerMisses)) {
             currModel.shootAtComputer(rowInt, colInt);
         }
         currModel.shootAtPlayer();
@@ -124,18 +124,6 @@ public class Main {
         currModel.shootAtPlayer();
         Gson gson = new Gson();
         return gson.toJson(currModel);
-    }
-
-    static boolean checkRepeatFire(Coordinate cord, List<Coordinate> hit, List<Coordinate> miss) {
-        for (Coordinate aHit : hit) {
-            if (cord.getAcross() == aHit.getDown() && cord.getDown() == aHit.getAcross())
-                return true;
-        }
-        for (Coordinate aMiss : miss) {
-            if (cord.getAcross() == aMiss.getDown() && cord.getDown() == aMiss.getAcross())
-                return true;
-        }
-        return false;
     }
 
 }
