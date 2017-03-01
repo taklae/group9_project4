@@ -4,18 +4,13 @@ package edu.oregonstate.cs361.battleship;
  * Created by michaelhilton on 1/5/17.
  */
 public class Ship {
+
     protected String name;
     protected int length;
     protected Coordinate start;
     protected Coordinate end;
-
-    public Ship(){
-        name = null;
-        length = 0;
-        start = new Coordinate(0,0);
-        end = new Coordinate(0,0);
-    }
-
+    protected boolean stealth = false;
+    protected boolean armorless = false;
 
     public Ship(String n, int l,Coordinate s, Coordinate e) {
         name = n;

@@ -151,7 +151,7 @@ if(gameModel.validPlace == 1){
 
 if(gameModel.AllShipsPlaced>1)
 {
-    alert("all ships have already been placed");
+    alert("All ships have already been placed");
 }
 
 if(gameModel.isGameOver == 1) {
@@ -162,8 +162,8 @@ if(gameModel.isGameOver == 1) {
 
 displayShip(gameModel.aircraftCarrier);
 displayShip(gameModel.battleship);
-displayShip(gameModel.cruiser);
-displayShip(gameModel.destroyer);
+displayShip(gameModel.clipper);
+displayShip(gameModel.dinghy);
 displayShip(gameModel.submarine);
 
 for (var i = 0; i < gameModel.computerMisses.length; i++) {
