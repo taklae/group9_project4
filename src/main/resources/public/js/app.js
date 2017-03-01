@@ -144,9 +144,14 @@ if(gameModel.scanResult == 1){
     alert("Scan found no Ships");
 }
 
+if(gameModel.validPlace == 1){
+    alert("Invalid ship placement");
+    gameModel.validPlace = 0;
+}
+
 if(gameModel.AllShipsPlaced>1)
 {
-    alert("all ships have already been placed");
+    alert("All ships have already been placed");
 }
 
 if(gameModel.isGameOver == 1) {

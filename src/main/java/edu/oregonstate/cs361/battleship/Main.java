@@ -60,6 +60,8 @@ public class Main {
             length = 5;
         else if (id.equals("battleship"))
             length = 4;
+        else if(id.equals("cruiser"))
+            length = 3;
         else
             length = 2;
 
@@ -68,7 +70,7 @@ public class Main {
             return false;
         else if(orientation.equals("horizontal") && length + Integer.parseInt(col) > 10)
             return false;
-
+        
         return true;
     }
 
