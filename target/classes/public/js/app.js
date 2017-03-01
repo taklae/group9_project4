@@ -44,7 +44,6 @@ function RandPlaceShips(){
        request.done(function( currModel ) {
          displayGameState(currModel);
          gameModel = currModel;
-
        });
 
        request.fail(function( jqXHR, textStatus ) {

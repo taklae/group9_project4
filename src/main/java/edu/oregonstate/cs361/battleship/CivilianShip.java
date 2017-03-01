@@ -6,8 +6,7 @@ package edu.oregonstate.cs361.battleship;
 public class CivilianShip extends Ship {
     public CivilianShip(String n, int l,Coordinate s, Coordinate e) {
         super(n, l, s, e);
-        stealth = false;
-        armorless=true;
+        armorless = true;
     }
 
 }
