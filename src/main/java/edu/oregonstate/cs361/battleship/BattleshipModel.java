@@ -151,7 +151,6 @@ public class BattleshipModel {
                 return;
             } else {
                 scanResult = 0;
-                return;
             }
         }
     }
