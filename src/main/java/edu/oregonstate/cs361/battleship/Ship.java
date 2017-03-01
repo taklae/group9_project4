@@ -8,6 +8,8 @@ public class Ship {
     private int length;
     private Coordinate start;
     private Coordinate end;
+    protected boolean stealth = false;
+    protected boolean armorless = false;
 
     public Ship(String n, int l,Coordinate s, Coordinate e) {
         name = n;
