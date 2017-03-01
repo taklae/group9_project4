@@ -144,14 +144,9 @@ if(gameModel.scanResult == 1){
     alert("Scan found no Ships");
 }
 
-if(gameModel.validPlace == 1){
-    alert("Invalid ship placement");
-    gameModel.validPlace = 0;
-}
-
 if(gameModel.AllShipsPlaced>1)
 {
-    alert("All ships have already been placed");
+    alert("all ships have already been placed");
 }
 
 if(gameModel.isGameOver == 1) {
@@ -162,8 +157,8 @@ if(gameModel.isGameOver == 1) {
 
 displayShip(gameModel.aircraftCarrier);
 displayShip(gameModel.battleship);
-displayShip(gameModel.clipper);
-displayShip(gameModel.dinghy);
+displayShip(gameModel.cruiser);
+displayShip(gameModel.destroyer);
 displayShip(gameModel.submarine);
 
 for (var i = 0; i < gameModel.computerMisses.length; i++) {
