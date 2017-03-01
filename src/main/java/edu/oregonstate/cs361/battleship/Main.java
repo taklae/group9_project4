@@ -70,7 +70,14 @@ public class Main {
             return false;
         else if(orientation.equals("horizontal") && length + Integer.parseInt(col) > 10)
             return false;
-        
+
+        /*
+        if(orientation.equals("vertical")){
+            Coordinate tiles= new Coordinate();
+        }else{
+
+        }
+        */
         return true;
     }
 
