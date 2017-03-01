@@ -104,7 +104,7 @@ public class Main {
         int colInt = Integer.parseInt(col);
         currModel.scanResult = 2;
         Coordinate fire = new Coordinate(colInt, rowInt);
-        if (! currModel.checkRepeatFire(fire, currModel.computerHits, currModel.computerMisses)) {
+        if (! currModel.checkRepeatFireArray(fire, currModel.computerHits, currModel.computerMisses)) {
             currModel.shootAtComputer(rowInt, colInt);
         }
         currModel.shootAtPlayer();

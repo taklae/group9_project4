@@ -1,5 +1,6 @@
 package edu.oregonstate.cs361.battleship;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -142,20 +143,16 @@ public class BattleshipModel {
 
     public void scan(int rowInt, int colInt) {
         Coordinate coor = new Coordinate(rowInt,colInt);
-        scanResult = 0;
-        if(computer_aircraftCarrier.scan(coor)){
-            scanResult = 1;
-        }
-        else if (computer_battleship.scan(coor)){
-            scanResult = 1;
-        }else if (computer_clipper.scan(coor)){
-            scanResult = 1;
-        }else if (computer_dinghy.scan(coor)){
-            scanResult = 1;
-        }else if (computer_submarine.scan(coor)){
-            scanResult = 1;
-        } else {
-            scanResult = 0;
+        ArrayList<Ship> shipList = new ArrayList<Ship>(Arrays.asList(computer_aircraftCarrier, computer_battleship, computer_clipper, computer_dinghy, computer_submarine));
+        for (int i = 0; i< shipList.size(); i++) {
+            Ship temp = shipList.get(i);
+            if (temp.stealth == false && temp.scan(coor)) {
+                scanResult = 1;
+                return;
+            } else {
+                scanResult = 0;
+                return;
+            }
         }
     }
 
@@ -308,7 +305,7 @@ public class BattleshipModel {
     }
 
 
-    static boolean checkRepeatFire(Coordinate cord, List<Coordinate> hit, List<Coordinate> miss) {
+    static boolean checkRepeatFireArray(Coordinate cord, List<Coordinate> hit, List<Coordinate> miss) {
         for (Coordinate aHit : hit) {
             if (cord.getAcross() == aHit.getDown() && cord.getDown() == aHit.getAcross())
                 return true;
