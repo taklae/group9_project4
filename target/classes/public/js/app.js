@@ -146,25 +146,40 @@ $( '#MyBoard td'  ).css("background-color", "#42A5F5");
 $( '#TheirBoard td'  ).css("background-color", "#42A5F5");
 
 if(gameModel.scanResult == 1){
-    alert("Scan found at least one Ship");
+
+    document.getElementById("mBox").innerHTML = "ALERT: Scan found at least one ship!"
+    document.getElementById("mBox").style.backgroundColor = "#FDD835";
+
 } else if (gameModel.scanResult == 0){
-    alert("Scan found no Ships");
+
+    document.getElementById("mBox").innerHTML = "ALERT: Scan found no ships!"
+    document.getElementById("mBox").style.backgroundColor = "#FDD835";
+
 }
 
 if(gameModel.validPlace == 1){
-    alert("Invalid ship placement");
+
+    document.getElementById("mBox").innerHTML = "ALERT: Invalid ship placement!";
+    document.getElementById("mBox").style.backgroundColor = "#FDD835";
+
     gameModel.validPlace = 0;
 }
 
 if(gameModel.AllShipsPlaced>1)
 {
-    alert("All ships have already been placed");
+    document.getElementById("mBox").innerHTML = "ALERT: All shiprs have been placed already!";
+    document.getElementById("mBox").style.backgroundColor = "#FDD835";
 }
 
 if(gameModel.isGameOver == 1) {
-    alert("Player wins!");
+
+    document.getElementById("mBox").innerHTML = "ALERT: You won!";
+    document.getElementById("mBox").style.backgroundColor = "#FDD835";
+
 } else if (gameModel.isGameOver == 2){
-    alert("Computer wins!");
+
+    document.getElementById("mBox").innerHTML = "ALERT: Computer won!";
+    document.getElementById("mBox").style.backgroundColor = "#FDD835";
 }
 
 displayShip(gameModel.aircraftCarrier);
