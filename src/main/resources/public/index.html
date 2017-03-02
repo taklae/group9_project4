@@ -64,7 +64,7 @@
                 <option value="horizontal">horizontal</option>
                 <option value="vertical">vertical</option>
             </select>
-            <button id="place" type="button" class="placeB" onclick="placeShip()">Place</button>
+            <button onmouseover="hoverMessage(this.id);" id="place" type="button" class="placeB" onclick="placeShip()">Place</button>
         </div>
 
         <div id="FireDiv">
@@ -94,8 +94,8 @@
                 <option value="9">9</option>
                 <option value="10">10</option>
             </select>
-            <button id = "fire" type="button" class="fireB" onclick="fire()" disabled>Fire</button>
-            <button id = "scan" type="button" class="scanB" onclick="scan()" disabled>Scan</button>
+            <button onmouseover="hoverMessage(this.id);" id = "fire" type="button" class="fireB" onclick="fire()" disabled>Fire</button>
+            <button onmouseover="hoverMessage(this.id);" id = "scan" type="button" class="scanB" onclick="scan()" disabled>Scan</button>
         </div>
     </div>
 
@@ -229,8 +229,11 @@
             </table>
         </div>
         <div class="controlRegion">
-            <button class="enabled", onclick="RandPlaceShips()">Randomize</button>
-            <button class="enabled", style="margin-top:20px;", onclick="NewGame()">New Game</button>
+            <button onmouseover="hoverMessage(this.id);" id="random" class="enabled", onclick="RandPlaceShips()">Randomize</button>
+            <button onmouseover="hoverMessage(this.id);" id="newGame", style="margin-top:20px;", onclick="NewGame()" disabled>New Game</button>
+            <div id="mBox" class="messageBox">
+                <p>Welcome to battleship! Click randomize, or place your ships to get started. </p>
+            </div>
         </div>
         <div id="TheirBoard" class="gameBoard">
             <table>
@@ -378,4 +381,42 @@
    });
 });
 </script>
+<script>
+
+function hoverMessage(descriptionID) {
+
+    var description;
+
+    switch(descriptionID){
+
+        case "random":
+
+            description = "Click to randomly place your ships on the board!";
+        break;
+        case "fire":
+
+            description = "To fire at a ship, choose the row and column of your desired location, then hit fire!";
+        break;
+        case "scan":
+
+            description = "This counts as a turn! Choose a row and column, then hit scan. This will alert you if there's a ship within a 1-tile radius of your selected point.";
+        break;
+        case "place":
+
+            description = "Select which ship you want to place, then select a row, column, and orienation for your ship. Hit place to put it on the board.";
+        break;
+        case "newGame":
+
+            description = "Click to reset the game";
+
+        break;
+
+
+
+    }
+    document.getElementById("mBox").innerHTML = description;
+    }
+
+</script>
+
 </html>

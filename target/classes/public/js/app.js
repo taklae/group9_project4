@@ -181,13 +181,17 @@ if( isShipPlaced(gameModel.aircraftCarrier) &&
 
     document.getElementById("fire").disabled = false;
     document.getElementById("scan").disabled = false;
+    document.getElementById("newGame").disabled = false;
     document.getElementById("place").disabled = true;
+    document.getElementById("random").disabled = true;
 }
 else{
 
     document.getElementById("fire").disabled = true;
     document.getElementById("scan").disabled = true;
+    document.getElementById("newGame").disabled = true;
     document.getElementById("place").disabled = false;
+    document.getElementById("random").disabled = false;
 }
 
 for (var i = 0; i < gameModel.computerMisses.length; i++) {
