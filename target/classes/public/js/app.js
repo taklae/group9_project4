@@ -133,6 +133,14 @@ function log(logContents){
     console.log(logContents);
 }
 
+function isShipPlaced( ship ){
+
+    if( ship.start.Across == 0 && ship.start.Down == 0 && ship.end.Across == 0 && ship.end.Down == 0){
+        return false;
+    }
+    return true;
+}
+
 function displayGameState(gameModel){
 $( '#MyBoard td'  ).css("background-color", "#42A5F5");
 $( '#TheirBoard td'  ).css("background-color", "#42A5F5");
@@ -164,6 +172,23 @@ displayShip(gameModel.battleship);
 displayShip(gameModel.clipper);
 displayShip(gameModel.dinghy);
 displayShip(gameModel.submarine);
+
+if( isShipPlaced(gameModel.aircraftCarrier) &&
+ isShipPlaced(gameModel.battleship) &&
+ isShipPlaced(gameModel.clipper) &&
+ isShipPlaced(gameModel.dinghy) &&
+ isShipPlaced(gameModel.submarine)){
+
+    document.getElementById("fire").disabled = false;
+    document.getElementById("scan").disabled = false;
+    document.getElementById("place").disabled = true;
+}
+else{
+
+    document.getElementById("fire").disabled = true;
+    document.getElementById("scan").disabled = true;
+    document.getElementById("place").disabled = false;
+}
 
 for (var i = 0; i < gameModel.computerMisses.length; i++) {
    $( '#TheirBoard #' + gameModel.computerMisses[i].Across + '_' + gameModel.computerMisses[i].Down ).css("background-color", "#4CAF50");

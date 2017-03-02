@@ -82,6 +82,16 @@ display:inline-block;
     background-color:#42A5F5;
 }
 
+.fireB:enabled{
+
+    background-color:#E64A19;
+}
+
+.scanB:enabled{
+
+    background-color:#FDD835;
+}
+
 table, th, td {
    border: 1px #424242;
 }
@@ -91,6 +101,7 @@ background-color: orange;
 }
 
 button{
+
     background-color:  #e7e7e7;
     color: black;
     border: none;
@@ -102,9 +113,16 @@ button{
     border: none;
 }
 
-button:hover {
+button:hover:enabled{
 
     font-weight: bold;
+}
+
+button:disabled{
+
+    background-color: #e7e7e7;
+    color: #98999b;
+
 }
 /*
 button {
