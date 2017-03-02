@@ -232,7 +232,7 @@
             <button onmouseover="hoverMessage(this.id);" id="random" class="enabled", onclick="RandPlaceShips()">Randomize</button>
             <button onmouseover="hoverMessage(this.id);" id="newGame", style="margin-top:20px;", onclick="NewGame()" disabled>New Game</button>
             <div id="mBox" class="messageBox">
-                <p>Welcome to battleship! Click randomize, or place your ships to get started. </p>
+                <p>Welcome to battleship! Click randomize, or place your ships to get started.</p>
             </div>
         </div>
         <div id="TheirBoard" class="gameBoard">
@@ -399,11 +399,11 @@ function hoverMessage(descriptionID) {
         break;
         case "scan":
 
-            description = "This counts as a turn! Choose a row and column, then hit scan. This will alert you if there's a ship within a 1-tile radius of your selected point.";
+            description = "This counts as a turn! Choose a row and column, then hit scan. This will alert you if there's a ship 1-tile above, below, or next to your selected point.";
         break;
         case "place":
 
-            description = "Select which ship you want to place, then select a row, column, and orienation for your ship. Hit place to put it on the board.";
+            description = "Select which ship you want to place, then select a row, column, and orientation for your ship. Hit place to put it on the board.";
         break;
         case "newGame":
 
