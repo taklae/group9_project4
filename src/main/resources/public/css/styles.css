@@ -70,9 +70,25 @@ display: inline-block;
 padding: 10px 10px 10px 10px;
 }
 
+.messageBox{
+
+    text-align: left;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 5px;
+    margin-top: 30px;
+    height: 200px;
+    width: 93%;
+    position: absolute;
+    font-family: "Roboto-Regular";
+    padding: 5px 5px 5px 5px;
+
+
+}
+
 .controlRegion{
 width:140px;
-transform: translateY(-400%);
+transform: translateY(-500%);
 display:inline-block;
 }
 
