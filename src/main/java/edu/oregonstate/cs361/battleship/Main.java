@@ -55,21 +55,27 @@ public class Main {
         String orientation = req.params("orientation");
 
         int length = 1;
-        System.out.println(id);
         if(id.equals("aircraftCarrier"))
             length = 5;
         else if (id.equals("battleship"))
             length = 4;
-        else if(id.equals("cruiser"))
+        else if(id.equals("clipper"))
             length = 3;
-        else
+        else if(id.equals("submarine"))
             length = 2;
+        else
+            length = 1;
 
-        System.out.println(length);
-        if(orientation.equals("vertical")  && length + Integer.parseInt(row) > 10)
+        if(orientation.equals("vertical")  && length + Integer.parseInt(row) > 10)//check for out of bounds, vertically or horizontally
             return false;
         else if(orientation.equals("horizontal") && length + Integer.parseInt(col) > 10)
             return false;
+
+        if(orientation.equals("vertical")){//check for ship overlap before placeing
+
+        }else{
+
+        }
 
         return true;
     }
@@ -111,6 +117,11 @@ public class Main {
         currModel.isGameOver = currModel.checkWin(currModel.computerHits, currModel.playerHits);
         Gson gson = new Gson();
         return gson.toJson(currModel);
+    }
+
+    private static int dummyFire(Coordinate cor){
+
+        return 0;
     }
 
 
