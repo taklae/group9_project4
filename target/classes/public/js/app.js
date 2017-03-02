@@ -133,6 +133,14 @@ function log(logContents){
     console.log(logContents);
 }
 
+function isShipPlaced( ship ){
+
+    if( ship.start.Across == 0 && ship.start.Down == 0 && ship.end.Across == 0 && ship.end.Down == 0){
+        return false;
+    }
+    return true;
+}
+
 function displayGameState(gameModel){
 $( '#MyBoard td'  ).css("background-color", "#42A5F5");
 $( '#TheirBoard td'  ).css("background-color", "#42A5F5");
@@ -165,17 +173,40 @@ displayShip(gameModel.clipper);
 displayShip(gameModel.dinghy);
 displayShip(gameModel.submarine);
 
+if( isShipPlaced(gameModel.aircraftCarrier) &&
+ isShipPlaced(gameModel.battleship) &&
+ isShipPlaced(gameModel.clipper) &&
+ isShipPlaced(gameModel.dinghy) &&
+ isShipPlaced(gameModel.submarine)){
+
+    document.getElementById("fire").disabled = false;
+    document.getElementById("scan").disabled = false;
+    document.getElementById("newGame").disabled = false;
+    document.getElementById("place").disabled = true;
+    document.getElementById("random").disabled = true;
+}
+else{
+
+    document.getElementById("fire").disabled = true;
+    document.getElementById("scan").disabled = true;
+    document.getElementById("newGame").disabled = true;
+    document.getElementById("place").disabled = false;
+    document.getElementById("random").disabled = false;
+}
+
 for (var i = 0; i < gameModel.computerMisses.length; i++) {
    $( '#TheirBoard #' + gameModel.computerMisses[i].Across + '_' + gameModel.computerMisses[i].Down ).css("background-color", "#4CAF50");
 }
 for (var i = 0; i < gameModel.computerHits.length; i++) {
    $( '#TheirBoard #' + gameModel.computerHits[i].Across + '_' + gameModel.computerHits[i].Down ).css("background-color", "#E64A19");
+    //console.log( "red" );
 }
 
 for (var i = 0; i < gameModel.playerMisses.length; i++) {
    $( '#MyBoard #' + gameModel.playerMisses[i].Across + '_' + gameModel.playerMisses[i].Down ).css("background-color", "#4CAF50");
 }
 for (var i = 0; i < gameModel.playerHits.length; i++) {
+    console.log( "red" );
    $( '#MyBoard #' + gameModel.playerHits[i].Across + '_' + gameModel.playerHits[i].Down ).css("background-color", "#E64A19");
 }
 

@@ -70,9 +70,25 @@ display: inline-block;
 padding: 10px 10px 10px 10px;
 }
 
+.messageBox{
+
+    text-align: left;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 5px;
+    margin-top: 30px;
+    height: 200px;
+    width: 93%;
+    position: absolute;
+    font-family: "Roboto-Regular";
+    padding: 5px 5px 5px 5px;
+
+
+}
+
 .controlRegion{
 width:140px;
-transform: translateY(-400%);
+transform: translateY(-500%);
 display:inline-block;
 }
 
@@ -80,6 +96,16 @@ display:inline-block;
     width: 40px;
     height:40px;
     background-color:#42A5F5;
+}
+
+.fireB:enabled{
+
+    background-color:#E64A19;
+}
+
+.scanB:enabled{
+
+    background-color:#FDD835;
 }
 
 table, th, td {
@@ -91,6 +117,7 @@ background-color: orange;
 }
 
 button{
+
     background-color:  #e7e7e7;
     color: black;
     border: none;
@@ -102,9 +129,16 @@ button{
     border: none;
 }
 
-button:hover {
+button:hover:enabled{
 
     font-weight: bold;
+}
+
+button:disabled{
+
+    background-color: #e7e7e7;
+    color: #98999b;
+
 }
 /*
 button {
