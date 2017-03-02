@@ -195,12 +195,14 @@ for (var i = 0; i < gameModel.computerMisses.length; i++) {
 }
 for (var i = 0; i < gameModel.computerHits.length; i++) {
    $( '#TheirBoard #' + gameModel.computerHits[i].Across + '_' + gameModel.computerHits[i].Down ).css("background-color", "#E64A19");
+    //console.log( "red" );
 }
 
 for (var i = 0; i < gameModel.playerMisses.length; i++) {
    $( '#MyBoard #' + gameModel.playerMisses[i].Across + '_' + gameModel.playerMisses[i].Down ).css("background-color", "#4CAF50");
 }
 for (var i = 0; i < gameModel.playerHits.length; i++) {
+    console.log( "red" );
    $( '#MyBoard #' + gameModel.playerHits[i].Across + '_' + gameModel.playerHits[i].Down ).css("background-color", "#E64A19");
 }
 
