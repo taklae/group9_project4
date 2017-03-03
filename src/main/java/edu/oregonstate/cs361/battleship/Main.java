@@ -32,6 +32,7 @@ public class Main {
     private static String newModel() {
         BattleshipModel bm = new BattleshipModel();
         Gson gson = new Gson();
+        System.out.println(gson.toJson(bm));
         return gson.toJson(bm);
     }
 
@@ -92,12 +93,17 @@ public class Main {
             currModel = currModel.placeShip(id,row,col,orientation);
 
         Gson gson = new Gson();
+        System.out.println(gson.toJson(currModel));
         return gson.toJson(currModel);
     }
 
     private static String fireAt(Request req) {
 
         BattleshipModel currModel = getModelFromReq(req);
+
+        Gson gson = new Gson();
+        System.out.println(gson.toJson(currModel));
+
         String row = req.params("row");
         String col = req.params("col");
         int rowInt = Integer.parseInt(row);
@@ -109,7 +115,7 @@ public class Main {
         }
         currModel.shootAtPlayer();
         currModel.isGameOver = currModel.checkWin(currModel.computerHits, currModel.playerHits);
-        Gson gson = new Gson();
+        //Gson gson = new Gson();
         return gson.toJson(currModel);
     }
 
@@ -123,6 +129,7 @@ public class Main {
         currModel.scan(rowInt,colInt);
         currModel.shootAtPlayer();
         Gson gson = new Gson();
+        System.out.println(gson.toJson(currModel));
         return gson.toJson(currModel);
     }
 
