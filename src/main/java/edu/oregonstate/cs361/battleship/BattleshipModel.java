@@ -9,7 +9,6 @@ import java.util.Random;
  */
 public class BattleshipModel {
 
-    int[][] board = new int[10][10];
     int AllShipsPlaced=0;
 
     private Ship aircraftCarrier = new Ship("AircraftCarrier",5, new Coordinate(0,0),new Coordinate(0,0));
@@ -139,7 +138,7 @@ public class BattleshipModel {
     public void shootAtPlayer() {
         int max = 10;
         int min = 1;
-        Random random = new Random();
+        Random random = new Random(1);
 
         int randRow = random.nextInt(max - min + 1) + min;
         int randCol = random.nextInt(max - min + 1) + min;
@@ -259,6 +258,7 @@ public class BattleshipModel {
     }
 
     public void  RandShips() {
+        int[][] board = new int[10][10];
         int lengths[] = {2, 1, 3, 4, 5};
 
         for (int k = 0; k < 5; k++) {
@@ -272,7 +272,7 @@ public class BattleshipModel {
             int[] StartCord=new int[2];
             int[] EndCord=new int[2];
 
-            Random rand = new Random();
+            Random rand = new Random(1);
             boolean crash = true;
             boolean sameloc = true;
 
@@ -359,25 +359,6 @@ public class BattleshipModel {
                 AllShipsPlaced=1;
             }
         }
-    }
-
-    public void printf() {
-        for (int x = 0; x < 10; x++) {
-            for (int y = 0; y < 10; y++) {
-                System.out.print(board[x][y]);
-            }
-            System.out.print("\n");
-        }
-        System.out.print(submarine);
-        System.out.print("\n");
-        System.out.print(dinghy);
-        System.out.print("\n");
-        System.out.print(clipper);
-        System.out.print("\n");
-        System.out.print(battleship);
-        System.out.print("\n");
-        System.out.print(aircraftCarrier);
-        System.out.print("\n");
     }
 
     public int checkWin(List<Coordinate> phits, List<Coordinate> chits) {
