@@ -54,23 +54,34 @@ public class Main {
         String row = req.params("row");
         String col = req.params("col");
         String orientation = req.params("orientation");
+        BattleshipModel model = getModelFromReq(req);
 
-        int length = 1;
-        System.out.println(id);
+        int length;
         if(id.equals("aircraftCarrier"))
             length = 5;
         else if (id.equals("battleship"))
             length = 4;
-        else if(id.equals("cruiser"))
+        else if(id.equals("clipper"))
             length = 3;
-        else
+        else if(id.equals("submarine"))
             length = 2;
+        else
+            length = 1;
 
-        System.out.println(length);
-        if(orientation.equals("vertical")  && length + Integer.parseInt(row) > 10)
+        if(orientation.equals("vertical")  && length + Integer.parseInt(row) > 10)//check for out of bounds, vertically or horizontally
             return false;
         else if(orientation.equals("horizontal") && length + Integer.parseInt(col) > 10)
             return false;
+
+        if(orientation.equals("vertical")){//check for ship overlap before placing
+            for(int i = 0; i < length; i++)
+                if(model.checkCor(id, Integer.parseInt(col), Integer.parseInt(row) + i) == 1)
+                    return false;
+        }else{
+            for(int i = 0; i < length; i++)
+                if(model.checkCor(id, Integer.parseInt(col) + i, Integer.parseInt(row)) == 1)
+                    return false;
+        }
 
         return true;
     }
@@ -118,7 +129,6 @@ public class Main {
         //Gson gson = new Gson();
         return gson.toJson(currModel);
     }
-
 
     private static String scan(Request req) {
         BattleshipModel currModel = getModelFromReq(req);

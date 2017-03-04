@@ -153,6 +153,27 @@ public class BattleshipModel {
         playerShot(coor);
     }
 
+    public int checkCor(String id, int x, int y){
+        Coordinate cor = new Coordinate(y, x);
+
+        //check for aircraft carrier collision
+        if(!id.equals("aircraftCarrier") && aircraftCarrier.start.getAcross() != 0 && aircraftCarrier.covers(cor))
+            return 1;
+        //check for battleship collision
+        if(!id.equals("battleship") && battleship.start.getAcross() != 0 && battleship.covers(cor))
+            return 1;
+        //check for clipper collision
+        if(!id.equals("clipper") && clipper.start.getAcross() != 0 && clipper.covers(cor))
+            return 1;
+        // check for submarine collision
+        if(!id.equals("submarine") && submarine.start.getAcross() != 0 && submarine.covers(cor))
+            return 1;
+        //check for dinghy collision
+        if(!id.equals("dinghy") &&  dinghy.start.getAcross() != 0 && dinghy.covers(cor))
+            return 1;
+        return 0;
+    }
+
     void playerShot(Coordinate coor) {
 
         if (aircraftCarrier.covers(coor)) {
