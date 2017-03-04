@@ -155,6 +155,20 @@ class BattleshipModelTest {
 
     }
 
+    @Test
+    void  RandShips(){
+        BattleshipModel model = new BattleshipModel();
+        BattleshipModel model2= new BattleshipModel();
+
+        model.RandShips();
+        model2.RandShips();
+
+        //tests that two independent classes created does in fact produce random
+        //coordinates if they are unequal. however since the random numbers are
+        //restrained to a specific range eventually this assert will fail when
+        //both generate the same random numbers.
+        assertNotEquals(model,model2);
+    }
 
 
 
