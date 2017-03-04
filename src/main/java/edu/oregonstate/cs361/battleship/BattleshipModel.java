@@ -92,41 +92,31 @@ public class BattleshipModel {
         Coordinate coor = new Coordinate(row,col);
         if (computer_aircraftCarrier.covers(coor)) {
             if(computer_aircraftCarrier.armorless)
-            {
                 OneShootShip(computer_aircraftCarrier.length,computer_aircraftCarrier.start,computer_aircraftCarrier.end,"comp");
-            }
             else
                 computerHits.add(coor);
         }
         else if (computer_battleship.covers(coor)) {
             if(computer_battleship.armorless)
-            {
                 OneShootShip(computer_battleship.length,computer_battleship.start,computer_battleship.end,"comp");
-            }
             else
                 computerHits.add(coor);
         }
         else if (computer_clipper.covers(coor)) {
             if(computer_clipper.armorless)
-            {
                 OneShootShip(computer_clipper.length,computer_clipper.start,computer_clipper.end,"comp");
-            }
             else
                 computerHits.add(coor);
         }
         else if (computer_dinghy.covers(coor)) {
             if(computer_dinghy.armorless)
-            {
                 OneShootShip(computer_dinghy.length,computer_dinghy.start,computer_dinghy.end,"comp");
-            }
             else
                 computerHits.add(coor);
         }
         else if (computer_submarine.covers(coor)) {
             if(computer_submarine.armorless)
-            {
                 OneShootShip(computer_submarine.length,computer_submarine.start,computer_submarine.end,"comp");
-            }
             else
                 computerHits.add(coor);
         }
@@ -293,7 +283,7 @@ public class BattleshipModel {
             int[] StartCord=new int[2];
             int[] EndCord=new int[2];
 
-            Random rand = new Random(1);
+            Random rand = new Random();
             boolean crash = true;
             boolean sameloc = true;
 
