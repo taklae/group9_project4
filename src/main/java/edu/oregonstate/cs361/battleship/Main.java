@@ -98,8 +98,11 @@ public class Main {
         if(checkPlace(req) ==  false)
             currModel.validPlace = 1;
 
-        if(id.equals("random") && currModel.AllShipsPlaced == 0)
-            currModel.RandShips();
+        if(id.equals("random") && currModel.AllShipsPlaced == 0) {
+            currModel.RandShips("player");
+            //currModel.RandShips("comp");
+        }
+
         else if(currModel.AllShipsPlaced == 0 && currModel.validPlace != 1)
             currModel = currModel.placeShip(id,row,col,orientation);
 
@@ -142,5 +145,4 @@ public class Main {
         System.out.println(gson.toJson(currModel));
         return gson.toJson(currModel);
     }
-
 }

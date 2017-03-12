@@ -39,7 +39,6 @@ public class BattleshipModel {
         computerMisses= new ArrayList<>();
     }
 
-
     public Ship getShip(String shipName) {
         if (shipName.equalsIgnoreCase("aircraftcarrier")) {
             return aircraftCarrier;
@@ -168,47 +167,36 @@ public class BattleshipModel {
 
         if (aircraftCarrier.covers(coor)) {
             if(aircraftCarrier.armorless)
-            {
                 OneShootShip(aircraftCarrier.length,aircraftCarrier.start,aircraftCarrier.end,"player");
-            }
             else
                 playerHits.add(coor);
         }
         else if (battleship.covers(coor)) {
             if(battleship.armorless)
-            {
                 OneShootShip(battleship.length,battleship.start,battleship.end,"player");
-            }
             else
                 playerHits.add(coor);
         }
         else if (clipper.covers(coor)) {
             if(clipper.armorless)
-            {
                 OneShootShip(clipper.length,clipper.start,clipper.end,"player");
-            }
             else
                 playerHits.add(coor);
         }
         else if (dinghy.covers(coor)) {
             if(dinghy.armorless)
-            {
                 OneShootShip(dinghy.length,dinghy.start,dinghy.end,"player");
-            }
             else
                 playerHits.add(coor);
         }
         else if (submarine.covers(coor)) {
             if(submarine.armorless)
-            {
                 OneShootShip(submarine.length,submarine.start,submarine.end,"player");
-            }
             else
                 playerHits.add(coor);
         }
-        else {
+        else
             playerMisses.add(coor);
-        }
     }
 
     void OneShootShip(int length, Coordinate StartCord, Coordinate EndCord ,String who){
@@ -268,9 +256,13 @@ public class BattleshipModel {
         return scanResult;
     }
 
-    public void  RandShips() {
+    public void  RandShips(String who) {
         int[][] board = new int[10][10];
         int lengths[] = {2, 1, 3, 4, 5};
+        boolean player=false;
+
+        if(who.equals("player"))
+            player=true;
 
         for (int k = 0; k < 5; k++) {
 
@@ -290,10 +282,10 @@ public class BattleshipModel {
             while (crash) {
                 overlap = 0;
                 if (counter == 0)
-                    orientation = rand.nextInt(1) + 1;
+                    orientation = rand.nextInt(2) + 1;
                 else if (counter == 2) {
                     counter = 0;
-                    orientation = rand.nextInt(1) + 1;
+                    orientation = rand.nextInt(2) + 1;
                     sameloc = true;
                 }
                 else
@@ -351,22 +343,37 @@ public class BattleshipModel {
                 StartCord[1]=ycord;
             }
 
-
             //records the starting and ending coordinates for each ship
             if(k==0){
-                this.getShip("submarine").setLocation(new Coordinate(StartCord[0]+1,StartCord[1]+1),new Coordinate(EndCord[0]+1,EndCord[1]+1));
+                if(player)
+                    submarine.setLocation(new Coordinate(StartCord[0]+1,StartCord[1]+1),new Coordinate(EndCord[0]+1,EndCord[1]+1));
+                else
+                    computer_submarine.setLocation(new Coordinate(StartCord[0]+1,StartCord[1]+1),new Coordinate(EndCord[0]+1,EndCord[1]+1));
             }
             else if(k==1){
-                this.getShip("dinghy").setLocation(new Coordinate(StartCord[0]+1,StartCord[1]+1),new Coordinate(EndCord[0]+1,EndCord[1]+1));
+                if(player)
+                    dinghy.setLocation(new Coordinate(StartCord[0]+1,StartCord[1]+1),new Coordinate(EndCord[0]+1,EndCord[1]+1));
+                else
+                    computer_dinghy.setLocation(new Coordinate(StartCord[0]+1,StartCord[1]+1),new Coordinate(EndCord[0]+1,EndCord[1]+1));
             }
             else if(k==2){
-                this.getShip("clipper").setLocation(new Coordinate(StartCord[0]+1,StartCord[1]+1),new Coordinate(EndCord[0]+1,EndCord[1]+1));
+                if(player)
+                    clipper.setLocation(new Coordinate(StartCord[0]+1,StartCord[1]+1),new Coordinate(EndCord[0]+1,EndCord[1]+1));
+                else
+                    computer_clipper.setLocation(new Coordinate(StartCord[0]+1,StartCord[1]+1),new Coordinate(EndCord[0]+1,EndCord[1]+1));
             }
             else if(k==3){
-                this.getShip("battleship").setLocation(new Coordinate(StartCord[0]+1,StartCord[1]+1),new Coordinate(EndCord[0]+1,EndCord[1]+1));
+                if(player)
+                    battleship.setLocation(new Coordinate(StartCord[0]+1,StartCord[1]+1),new Coordinate(EndCord[0]+1,EndCord[1]+1));
+                else
+                    computer_battleship.setLocation(new Coordinate(StartCord[0]+1,StartCord[1]+1),new Coordinate(EndCord[0]+1,EndCord[1]+1));
             }
             else if(k==4){
-                this.getShip("aircraftcarrier").setLocation(new Coordinate(StartCord[0]+1,StartCord[1]+1),new Coordinate(EndCord[0]+1,EndCord[1]+1));
+                if(player)
+                    aircraftCarrier.setLocation(new Coordinate(StartCord[0]+1,StartCord[1]+1),new Coordinate(EndCord[0]+1,EndCord[1]+1));
+                else
+                    computer_aircraftCarrier.setLocation(new Coordinate(StartCord[0]+1,StartCord[1]+1),new Coordinate(EndCord[0]+1,EndCord[1]+1));
+
                 AllShipsPlaced=1;
             }
         }
