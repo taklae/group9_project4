@@ -139,6 +139,4 @@ class MainTest {
             return new Gson().fromJson(body, HashMap.class);
         }
     }
-
-
 }

@@ -159,15 +159,35 @@ class BattleshipModelTest {
     void  RandShips(){
         BattleshipModel model = new BattleshipModel();
         BattleshipModel model2= new BattleshipModel();
+        int row=0;
+        int column=0;
 
-        model.RandShips();
-        model2.RandShips();
+        //checks that both models start out empty
+        assertEquals(model.checkCor("dinghy",0,0),model2.checkCor("dingy",0,0));
+
+        model.RandShips("player");
+        model2.RandShips("player");
 
         //tests that two independent classes created does in fact produce random
         //coordinates if they are unequal. however since the random numbers are
         //restrained to a specific range eventually this assert will fail when
         //both generate the same random numbers.
-        assertNotEquals(model,model2);
+
+        //finds the cordinate for the dingy in model 1
+        for(int i=0; i<9; i++) {
+            for(int j=0; j<9; j++){
+                if(model.checkCor("dinghy",i,j)==1){
+                    row=i;
+                    column=j;
+                }
+            }
+        }
+
+        //checks that dingy is in fact in the location found in model one
+        //but it is not in the same location in model 2
+        //therefore the randships function did in fact randomly place it somewhere else
+        assertEquals(1,model.checkCor("dinghy",row,column));
+        assertEquals(0,model2.checkCor("dinghy",row,column));
     }
 
 
