@@ -39,7 +39,7 @@ header {
  }
 
  .toolbar {
-     display: block;
+     display: inline-block;
      font-family: "Roboto-Regular", sans-serif;
      text-align: center;
 
@@ -47,24 +47,25 @@ header {
 
  #Pboard{
      float: left;
-     padding-left: 10%
+     padding-left: 12%
  }
 
  #Oboard{
     float: right;
-     padding-right: 10%;
+     padding-right: 9%;
  }
 
 #AircraftcarrierDiv {
    float: left;
-   margin-left:-5%;
+   margin-left:-30%;
+
 
 
   }
 
 #FireDiv {
     float: right;
-    padding-right:8%;
+    margin-right:-27%;
 }
 
 .gameBoard{

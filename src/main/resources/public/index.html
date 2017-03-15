@@ -33,38 +33,11 @@
                 <option value="dinghy">Dinghy</option>
                 <option value="submarine">Submarine</option>
             </select>
-            Row:
-            <select name="rowSelec" id="rowSelec">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-            </select>
-            Column:
-            <select name="colSelec" id="colSelec">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-            </select>
             Orientation:
             <select name="orientationSelec" id="orientationSelec">
                 <option value="horizontal">horizontal</option>
                 <option value="vertical">vertical</option>
             </select>
-            <button onmouseover="hoverMessage(this.id);" id="place" type="button" class="placeB" onclick="placeShip()">Place</button>
         </div>
 
         <div id="FireDiv">
@@ -232,7 +205,7 @@
             <button onmouseover="hoverMessage(this.id);" id="random" class="enabled", onclick="RandPlaceShips()">Randomize</button>
             <button onmouseover="hoverMessage(this.id);" id="newGame", style="margin-top:20px;", onclick="NewGame()" disabled>New Game</button>
             <div id="mBox" class="messageBox">
-                <p>Welcome to battleship! Click randomize, or place your ships to get started.</p>
+                <p>Welcome to battleship! Click randomize, or click to place your ships using the drop-down menus above your board to get started.</p>
             </div>
         </div>
         <div id="TheirBoard" class="gameBoard">
@@ -399,11 +372,8 @@ function hoverMessage(descriptionID) {
         break;
         case "scan":
 
-            description = "This counts as a turn! Choose a row and column, then hit scan. This will alert you if there's a ship 1-tile above, below, or next to your selected point.";
-        break;
-        case "place":
 
-            description = "Select which ship you want to place, then select a row, column, and orientation for your ship. Hit place to put it on the board.";
+            description = "This counts as a turn! Choose a row and column, then hit scan. This will alert you if there's a ship 1-tile above, below, or next to your selected point.";
         break;
         case "newGame":
 
@@ -417,6 +387,30 @@ function hoverMessage(descriptionID) {
     document.getElementById("mBox").style.backgroundColor = "white";
     document.getElementById("mBox").innerHTML = description;
     }
+
+</script>
+<script>
+
+    $('td').mouseover(function(){
+
+    var coordinates = this.id.split("_");
+    previewShip(coordinates,0,0);
+
+    });
+
+    $('td').mouseout(function(){
+
+    var coordinates = this.id.split("_");
+    previewShip(coordinates,1,0);
+
+    });
+
+    $('td').mouseup(function(){
+
+    var coordinates = this.id.split("_");
+    previewShip(coordinates,0,1);
+
+    });
 
 </script>
 
