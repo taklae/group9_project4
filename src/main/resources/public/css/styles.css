@@ -511,6 +511,7 @@ footer:before {
     border-radius: 3px;
     -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
+
 }
 
 .switch-label {
@@ -570,15 +571,12 @@ footer:before {
     height: 22px;
     background: #E64A19;
     border-radius: 3px;
-    /*background-image: -webkit-linear-gradient(top, #9dd993, #65bd63);
-    background-image: -moz-linear-gradient(top, #9dd993, #65bd63);
-    background-image: -o-linear-gradient(top, #9dd993, #65bd63);
-    background-image: linear-gradient(to bottom, #9dd993, #65bd63);
-    */
+
     -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.5), 0 0 2px rgba(0, 0, 0, 0.2);
     box-shadow: inset 0 1px rgba(255, 255, 255, 0.5), 0 0 2px rgba(0, 0, 0, 0.2);
-    -webkit-transition: left 0.15s ease-out;
-    -moz-transition: left 0.15s ease-out;
-    -o-transition: left 0.15s ease-out;
-    transition: left 0.15s ease-out;
+    -webkit-transition: left 0.15s ease-out, background-color 600ms;
+    -moz-transition: left 0.15s ease-out, background-color 600ms;
+    -o-transition: left 0.15s ease-out, background-color 600ms;
+    transition: left 0.15s ease-out, background-color 600ms;
+
 }

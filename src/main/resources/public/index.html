@@ -41,11 +41,11 @@
         </div>
         <div id="FireDiv">
             <div class="switch">
-                <input type="radio" class="switch-input" name="view" value="fire" id="fire" checked>
+                <input type="radio" onclick="toggleFire()" class="switch-input" name="view" value="fire" id="fire" checked>
                 <label for="fire" class="switch-label switch-label-off">Fire</label>
-                <input type="radio" class="switch-input" name="view" value="scan" id="scan">
+                <input type="radio" onclick="toggleScan()" class="switch-input" name="view" value="scan" id="scan">
                 <label for="scan" class="switch-label switch-label-on">Scan</label>
-                <span class="switch-selection"></span>
+                <span class="switch-selection" id="toggle"></span>
             </div>
         </div>
     </div>
@@ -332,6 +332,25 @@
    });
 });
 </script>
+
+<script>
+
+function toggleFire() {
+    if (document.getElementById("fire").checked == true)
+        document.getElementById("toggle").style.background = "#E64A19";
+    if (document.getElementById("fire").checked == false)
+        document.getElementById("toggle").style.background = "#FDD835";
+}
+
+function toggleScan() {
+    if (document.getElementById("fire").checked == true)
+        document.getElementById("toggle").style.background = "#E64A19";
+    if (document.getElementById("fire").checked == false)
+        document.getElementById("toggle").style.background = "#FDD835";
+}
+
+</script>
+
 <script>
 
 function hoverMessage(descriptionID) {
@@ -367,6 +386,7 @@ function hoverMessage(descriptionID) {
     }
 
 </script>
+
 <script>
 
     $('#MyBoard td').mouseover(function(){

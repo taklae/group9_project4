@@ -397,13 +397,13 @@ function previewShip(coordinates, erase, place){
 function previewShoot(coordinates, erase, shoot) {
     coordAcross = Number(coordinates[0]);
     coordDown = Number(coordinates[1]);
-    var blank = true;
 
     if (shoot) {
         if (document.getElementById("fire").checked == true)
             fire(coordinates[0],coordinates[1]);
-        if (document.getElementById("scan").checked == true)
-            scan(coordinates[0],coordinates[1]);
+        if (document.getElementById("scan").checked == true) {
+            scan(coordinates[0], coordinates[1]);
+        }
         return;
     }
 
@@ -421,3 +421,5 @@ function previewShoot(coordinates, erase, shoot) {
         }
     }
 }
+
+
