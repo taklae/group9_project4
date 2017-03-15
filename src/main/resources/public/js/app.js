@@ -25,6 +25,14 @@ $( document ).ready(function() {
 
 function NewGame(){
 
+    for( var i = 0; i < 5; i++ ){
+
+        ships[i].startAcross = 0;
+        ships[i].endAcross = 0;
+        ships[i].startDown = 0;
+        ships[i].endDown = 0;
+    }
+
     var request = $.ajax({
          url: "/newGame",
          method: "post",
@@ -48,7 +56,7 @@ function NewGame(){
 function RandPlaceShips(){
     console.log("randomized ships");
     var request = $.ajax({
-         url: "/placeShip/"+"random"+"/"+$( "#rowSelec" ).val()+"/"+$( "#colSelec" ).val()+"/"+$( "#orientationSelec" ).val(),
+         url: "/placeShip/"+"random"+"/"+"0"+"/"+"0"+"/"+"0",
          method: "post",
          data: JSON.stringify(gameModel),
          contentType: "application/json; charset=utf-8",
@@ -58,6 +66,31 @@ function RandPlaceShips(){
        request.done(function( currModel ) {
          displayGameState(currModel);
          gameModel = currModel;
+
+     ships[0].startAcross    = gameModel.aircraftCarrier.start.Across;
+     ships[0].startDown      = gameModel.aircraftCarrier.start.Down;
+     ships[0].endAcross      = gameModel.aircraftCarrier.end.Across;
+     ships[0].endDown        = gameModel.aircraftCarrier.end.Down;
+
+     ships[1].startAcross    = gameModel.battleship.start.Across;
+     ships[1].startDown      = gameModel.battleship.start.Down;
+     ships[1].endAcross      = gameModel.battleship.end.Across;
+     ships[1].endDown        = gameModel.battleship.end.Down;
+
+     ships[2].startAcross    = gameModel.clipper.start.Across;
+     ships[2].startDown      = gameModel.clipper.start.Down;
+     ships[2].endAcross      = gameModel.clipper.end.Across;
+     ships[2].endDown        = gameModel.clipper.end.Down;
+
+     ships[3].startAcross    = gameModel.dinghy.start.Across;
+     ships[3].startDown      = gameModel.dinghy.start.Down;
+     ships[3].endAcross      = gameModel.dinghy.end.Across;
+     ships[3].endDown        = gameModel.dinghy.end.Down;
+
+     ships[4].startAcross    = gameModel.submarine.start.Across;
+     ships[4].startDown      = gameModel.submarine.start.Down;
+     ships[4].endAcross      = gameModel.submarine.end.Across;
+     ships[4].endDown        = gameModel.submarine.end.Down;
        });
 
        request.fail(function( jqXHR, textStatus ) {
@@ -201,23 +234,27 @@ displayShip(gameModel.clipper);
 displayShip(gameModel.dinghy);
 displayShip(gameModel.submarine);
 
-if( isShipPlacedModel(gameModel.aircraftCarrier) &&
+if( isShipPlacedModel(gameModel.aircraftCarrier) ||
+ isShipPlacedModel(gameModel.battleship) ||
+ isShipPlacedModel(gameModel.clipper) ||
+ isShipPlacedModel(gameModel.dinghy) ||
+ isShipPlacedModel(gameModel.submarine)){
+
+    document.getElementById("newGame").disabled = false;
+    document.getElementById("random").disabled = true;
+}
+else if( isShipPlacedModel(gameModel.aircraftCarrier) &&
  isShipPlacedModel(gameModel.battleship) &&
  isShipPlacedModel(gameModel.clipper) &&
  isShipPlacedModel(gameModel.dinghy) &&
  isShipPlacedModel(gameModel.submarine)){
 
-    //document.getElementById("fire").disabled = false;
-    //document.getElementById("scan").disabled = false;
-    document.getElementById("newGame").disabled = false;
-    document.getElementById("random").disabled = true;
 }
 else{
 
-    //document.getElementById("fire").disabled = true;
-    //document.getElementById("scan").disabled = true;
     document.getElementById("newGame").disabled = true;
     document.getElementById("random").disabled = false;
+
 }
 
 for (var i = 0; i < gameModel.computerMisses.length; i++) {
@@ -399,12 +436,29 @@ function previewShoot(coordinates, erase, shoot) {
     coordDown = Number(coordinates[1]);
 
     if (shoot) {
+<<<<<<< HEAD
         if (document.getElementById("fire").checked == true)
             fire(coordinates[0],coordinates[1]);
         if (document.getElementById("scan").checked == true) {
             scan(coordinates[0], coordinates[1]);
         }
         return;
+=======
+
+        if( isShipPlaced(0) && isShipPlaced(1) && isShipPlaced(2) && isShipPlaced(3) && isShipPlaced(4)){
+
+            if (document.getElementById("fire").checked == true)
+                fire(coordinates[0],coordinates[1]);
+            if (document.getElementById("scan").checked == true)
+                scan(coordinates[0],coordinates[1]);
+            return;
+        }
+        else{
+
+            document.getElementById("mBox").innerHTML = "You must place all your ships first!"
+            document.getElementById("mBox").style.backgroundColor = "#FDD835";
+        }
+>>>>>>> upstream/master
     }
 
 
