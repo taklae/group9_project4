@@ -240,8 +240,6 @@ if( isShipPlacedModel(gameModel.aircraftCarrier) ||
  isShipPlacedModel(gameModel.dinghy) ||
  isShipPlacedModel(gameModel.submarine)){
 
-    //document.getElementById("fire").disabled = false;
-    //document.getElementById("scan").disabled = false;
     document.getElementById("newGame").disabled = false;
     document.getElementById("random").disabled = true;
 }
@@ -254,8 +252,6 @@ else if( isShipPlacedModel(gameModel.aircraftCarrier) &&
 }
 else{
 
-    //document.getElementById("fire").disabled = true;
-    //document.getElementById("scan").disabled = true;
     document.getElementById("newGame").disabled = true;
     document.getElementById("random").disabled = false;
 
