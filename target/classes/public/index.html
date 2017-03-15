@@ -39,36 +39,14 @@
                 <option value="vertical">vertical</option>
             </select>
         </div>
-
-        <div id="FireDiv">
-            Row:
-            <select name="rowFire" id="rowFire">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-            </select>
-            Column:
-            <select name="colFire" id="colFire">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-            </select>
-            <button onmouseover="hoverMessage(this.id);" id = "fire" type="button" class="fireB" onclick="fire()" disabled>Fire</button>
-            <button onmouseover="hoverMessage(this.id);" id = "scan" type="button" class="scanB" onclick="scan()" disabled>Scan</button>
+        <div id="FireDiv" onmouseover="hoverMessage(this.id);">
+            <div class="switch">
+                <input type="radio" class="switch-input" name="view" value="fire" id="fire" checked>
+                <label for="fire" class="switch-label switch-label-off">Fire</label>
+                <input type="radio" class="switch-input" name="view" value="scan" id="scan">
+                <label for="scan" class="switch-label switch-label-on">Scan</label>
+                <span class="switch-selection"></span>
+            </div>
         </div>
     </div>
 
@@ -366,14 +344,9 @@ function hoverMessage(descriptionID) {
 
             description = "Click to randomly place your ships on the board!";
         break;
-        case "fire":
+        case "FireDiv":
 
-            description = "To fire at a ship, choose the row and column of your desired location, then hit fire!";
-        break;
-        case "scan":
-
-
-            description = "This counts as a turn! Choose a row and column, then hit scan. This will alert you if there's a ship 1-tile above, below, or next to your selected point.";
+            description = "Click on the computer's board to either scan or fire depending on the toggle switch. Scan will alert you if there's a ship 1-tile above, below, or next to your selected point";
         break;
         case "newGame":
 
@@ -391,25 +364,40 @@ function hoverMessage(descriptionID) {
 </script>
 <script>
 
-    $('td').mouseover(function(){
+    $('#MyBoard td').mouseover(function(){
 
     var coordinates = this.id.split("_");
     previewShip(coordinates,0,0);
-
     });
 
-    $('td').mouseout(function(){
+    $('#MyBoard td').mouseout(function(){
 
     var coordinates = this.id.split("_");
     previewShip(coordinates,1,0);
-
     });
 
-    $('td').mouseup(function(){
+    $('#MyBoard td').mouseup(function(){
 
     var coordinates = this.id.split("_");
     previewShip(coordinates,0,1);
+    });
 
+    $('#TheirBoard td').mouseover(function(){
+
+    var shootCoordinates = this.id.split("_");
+    previewShoot(shootCoordinates,0,0);
+    });
+
+    $('#TheirBoard td').mouseout(function(){
+
+    var shootCoordinates = this.id.split("_");
+    previewShoot(shootCoordinates,1,0);
+    });
+
+    $('#TheirBoard td').click(function(){
+
+    var shootCoordinates = this.id.split("_");
+    previewShoot(shootCoordinates,0,1);
     });
 
 </script>

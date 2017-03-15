@@ -582,3 +582,8 @@ footer:before {
     -o-transition: left 0.15s ease-out;
     transition: left 0.15s ease-out;
 }
+
+.switch-selection:disabled {
+
+    background: #e7e7e7;
+}
