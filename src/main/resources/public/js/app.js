@@ -434,7 +434,6 @@ function previewShip(coordinates, erase, place){
 function previewShoot(coordinates, erase, shoot) {
     coordAcross = Number(coordinates[0]);
     coordDown = Number(coordinates[1]);
-    var blank = true;
 
     if (shoot) {
 
