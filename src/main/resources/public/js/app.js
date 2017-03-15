@@ -93,12 +93,12 @@ function placeShip(row,column) {
 
 
 
-function fire(){
- console.log($( "#colFire" ).val());
-   console.log($( "#rowFire" ).val());
+function fire(row, col){
+    console.log(row);
+    console.log(col);
 //var menuId = $( "ul.nav" ).first().attr( "id" );
    var request = $.ajax({
-     url: "/fire/"+$( "#rowFire" ).val()+"/"+$( "#colFire" ).val(),
+     url: "/fire/"+String(row)+"/"+String(col),
      method: "post",
      data: JSON.stringify(gameModel),
      contentType: "application/json; charset=utf-8",
@@ -117,27 +117,27 @@ function fire(){
 
 }
 
-function scan(){
- console.log($( "#colFire" ).val());
-   console.log($( "#rowFire" ).val());
+function scan(row, col){
+    console.log(row);
+    console.log(col);
 //var menuId = $( "ul.nav" ).first().attr( "id" );
-   var request = $.ajax({
-     url: "/scan/"+$( "#rowFire" ).val()+"/"+$( "#colFire" ).val(),
-     method: "post",
-     data: JSON.stringify(gameModel),
-     contentType: "application/json; charset=utf-8",
-     dataType: "json"
-   });
+    var request = $.ajax({
+        url: "/scan/"+String(row)+"/"+String(col),
+        method: "post",
+        data: JSON.stringify(gameModel),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json"
+    });
 
-   request.done(function( currModel ) {
-     displayGameState(currModel);
-     gameModel = currModel;
+    request.done(function( currModel ) {
+        displayGameState(currModel);
+        gameModel = currModel;
 
-   });
+    });
 
-   request.fail(function( jqXHR, textStatus ) {
-     alert( "Request failed: " + textStatus );
-   });
+    request.fail(function( jqXHR, textStatus ) {
+        alert( "Request failed: " + textStatus );
+    });
 
 }
 
@@ -207,15 +207,15 @@ if( isShipPlacedModel(gameModel.aircraftCarrier) &&
  isShipPlacedModel(gameModel.dinghy) &&
  isShipPlacedModel(gameModel.submarine)){
 
-    document.getElementById("fire").disabled = false;
-    document.getElementById("scan").disabled = false;
+    //document.getElementById("fire").disabled = false;
+    //document.getElementById("scan").disabled = false;
     document.getElementById("newGame").disabled = false;
     document.getElementById("random").disabled = true;
 }
 else{
 
-    document.getElementById("fire").disabled = true;
-    document.getElementById("scan").disabled = true;
+    //document.getElementById("fire").disabled = true;
+    //document.getElementById("scan").disabled = true;
     document.getElementById("newGame").disabled = true;
     document.getElementById("random").disabled = false;
 }
@@ -389,7 +389,35 @@ function previewShip(coordinates, erase, place){
             ships[shipType].endAcross   = endCoordAcross;
             ships[shipType].endDown     = endCoordDown;
         }
+
      }
      }
 }
 
+function previewShoot(coordinates, erase, shoot) {
+    coordAcross = Number(coordinates[0]);
+    coordDown = Number(coordinates[1]);
+    var blank = true;
+
+    if (shoot) {
+        if (document.getElementById("fire").checked == true)
+            fire(coordinates[0],coordinates[1]);
+        if (document.getElementById("scan").checked == true)
+            scan(coordinates[0],coordinates[1]);
+        return;
+    }
+
+
+    if( !erase)
+        $( '#TheirBoard #'+coordAcross+'_'+coordDown  ).css("background-color", "#FDD835");
+    else {
+        $('#TheirBoard #' + coordAcross + '_' + coordDown).css("background-color", "#42A5F5");
+
+        for (var i = 0; i < gameModel.computerMisses.length; i++) {
+            $( '#TheirBoard #' + gameModel.computerMisses[i].Across + '_' + gameModel.computerMisses[i].Down ).css("background-color", "#4CAF50");
+        }
+        for (var i = 0; i < gameModel.computerHits.length; i++) {
+            $( '#TheirBoard #' + gameModel.computerHits[i].Across + '_' + gameModel.computerHits[i].Down ).css("background-color", "#E64A19");
+        }
+    }
+}
