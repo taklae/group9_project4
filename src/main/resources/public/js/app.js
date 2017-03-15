@@ -1,6 +1,20 @@
 var gameModel;
 //var randbutton=document.getElementById('user-select');
 
+var ship = class {
+  constructor(startAcross, startDown, endAcross, endDown) {
+    this.startAcross = startAcross;
+    this.endAcross = endAcross;
+    this.startDown = startDown;
+    this.endAcross = endAcross;
+  }
+};
+
+//Create ships
+var ships = new Array();
+for( var i = 0; i < 5; i++)
+    ships.push(new ship(0,0,0,0));
+
 $( document ).ready(function() {
   // Handler for .ready() called.
   $.getJSON("model", function( json ) {
@@ -51,15 +65,14 @@ function RandPlaceShips(){
        });
 }
 
-function placeShip() {
-   console.log($( "#shipSelec" ).val());
-   console.log($( "#rowSelec" ).val());
-   console.log($( "#colSelec" ).val());
-   console.log($( "#orientationSelec" ).val());
+function placeShip(row,column) {
+
+   console.log(row);
+   console.log(column);
 
    //var menuId = $( "ul.nav" ).first().attr( "id" );
    var request = $.ajax({
-     url: "/placeShip/"+$( "#shipSelec" ).val()+"/"+$( "#rowSelec" ).val()+"/"+$( "#colSelec" ).val()+"/"+$( "#orientationSelec" ).val(),
+     url: "/placeShip/"+$( "#shipSelec" ).val()+"/"+String(row)+"/"+String(column)+"/"+$( "#orientationSelec" ).val(),
      method: "post",
      data: JSON.stringify(gameModel),
      contentType: "application/json; charset=utf-8",
@@ -133,7 +146,7 @@ function log(logContents){
     console.log(logContents);
 }
 
-function isShipPlaced( ship ){
+function isShipPlacedModel( ship ){
 
     if( ship.start.Across == 0 && ship.start.Down == 0 && ship.end.Across == 0 && ship.end.Down == 0){
         return false;
@@ -188,11 +201,11 @@ displayShip(gameModel.clipper);
 displayShip(gameModel.dinghy);
 displayShip(gameModel.submarine);
 
-if( isShipPlaced(gameModel.aircraftCarrier) &&
- isShipPlaced(gameModel.battleship) &&
- isShipPlaced(gameModel.clipper) &&
- isShipPlaced(gameModel.dinghy) &&
- isShipPlaced(gameModel.submarine)){
+if( isShipPlacedModel(gameModel.aircraftCarrier) &&
+ isShipPlacedModel(gameModel.battleship) &&
+ isShipPlacedModel(gameModel.clipper) &&
+ isShipPlacedModel(gameModel.dinghy) &&
+ isShipPlacedModel(gameModel.submarine)){
 
     document.getElementById("fire").disabled = false;
     document.getElementById("scan").disabled = false;
@@ -229,8 +242,6 @@ for (var i = 0; i < gameModel.playerHits.length; i++) {
 
 }
 
-
-
 function displayShip(ship, name){
  startCoordAcross = ship.start.Across;
  startCoordDown = ship.start.Down;
@@ -248,7 +259,139 @@ function displayShip(ship, name){
         }
     }
  }
-
-
-
 }
+
+function checkShipIntersection(startA, startD, endA, endD, length){
+
+    //Check against each ship
+    for(var i = 0; i < 5; i++){
+
+        //If the ship is actually placed
+        if(isShipPlaced(i)){
+
+            //Test vertical ship again horizonal
+            if(startD == endD && ships[i].startAcross == ships[i].endAcross){
+
+                if(startD >= ships[i].startDown && startD <= ships[i].startDown + (ships[i].endDown-ships[i].startDown)
+                   && ships[i].startAcross >= startA && ships[i].startAcross < startA + length )
+                    return true;
+            }
+            //Test horizontal against vertical
+            else if(startA == endA && ships[i].startDown == ships[i].endDown){
+
+                if(ships[i].startDown >= startD && ships[i].startDown < startD + length
+                   && startA >= ships[i].startAcross && startA <= ships[i].startAcross + (ships[i].endAcross-ships[i].startAcross))
+                    return true;
+            }
+            //Test horizontal against horizontal
+            else if( startA == ships[i].startAcross ){
+
+                if(startD >= ships[i].startDown && startD <= ships[i].startDown + (ships[i].endDown-ships[i].startDown)
+                || endD >= ships[i].startDown && endD <= ships[i].startDown + (ships[i].endDown-ships[i].startDown))
+                    return true;
+            }
+            //Test vertical against vertical
+            else if(startD == ships[i].startDown){
+
+                if(startA >= ships[i].startAcross && startA <= ships[i].startAcross + (ships[i].endAcross-ships[i].startAcross)
+                || endA >= ships[i].startAcross && endA <= ships[i].startAcross + (ships[i].endAcross-ships[i].startAcross))
+                    return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+function isShipPlaced(index){
+
+    if(ships[index].startAcross != 0 && ships[index].startDown != 0
+    && ships[index].endAcross != 0 && ships[index].endDown != 0){
+
+        return true;
+
+    }
+
+    return false;
+}
+
+function previewShip(coordinates, erase, place){
+
+    var shipLength = 0;
+    var orientation = document.getElementById("orientationSelec").selectedIndex;
+    var shipType = document.getElementById("shipSelec").selectedIndex;
+
+    if( !isShipPlaced(shipType) ){
+
+    //Get the length of the ship
+    switch(shipType){
+
+        case 0:
+            shipLength = 5;
+        break;
+        case 1:
+            shipLength = 4;
+        break;
+        case 2:
+            shipLength = 3;
+        break;
+        case 3:
+            shipLength = 1;
+        break;
+        case 4:
+            shipLength = 2;
+        break;
+
+    }
+
+    startCoordAcross = Number(coordinates[0]);
+    startCoordDown = Number(coordinates[1]);
+
+    if( orientation == 1 ){
+
+        endCoordAcross = Number(startCoordAcross) + Number(shipLength) - 1;
+        endCoordDown = startCoordDown;
+
+    }
+    else{
+        endCoordAcross = startCoordAcross;
+        endCoordDown = Number(startCoordDown) + Number(shipLength) - 1;
+
+    }
+
+     if(startCoordAcross > 0 && startCoordAcross <= 10
+     && startCoordDown > 0 && startCoordDown <= 10
+     && endCoordAcross > 0 && endCoordAcross <= 10
+     && endCoordDown > 0 && endCoordDown <= 10
+     && checkShipIntersection(startCoordAcross, startCoordDown, endCoordAcross, endCoordDown, shipLength) == false){
+
+        if(startCoordAcross == endCoordAcross){
+            for (i = startCoordDown; i <= endCoordDown; i++) {
+
+                if( !erase )
+                    $( '#MyBoard #'+startCoordAcross+'_'+i  ).css("background-color", "#FDD835");
+                else
+                    $( '#MyBoard #'+startCoordAcross+'_'+i  ).css("background-color", "#42A5F5");
+            }
+        } else {
+            for (i = startCoordAcross; i <= endCoordAcross; i++) {
+
+                if( !erase )
+                    $( '#MyBoard #'+i+'_'+startCoordDown  ).css("background-color", "#FDD835");
+                else
+                    $( '#MyBoard #'+i+'_'+startCoordDown  ).css("background-color", "#42A5F5");
+            }
+        }
+        if( place ){
+            placeShip(coordinates[0],coordinates[1]);
+
+            //Update ship coordinates
+            ships[shipType].startAcross = startCoordAcross;
+            ships[shipType].startDown   = startCoordDown;
+            ships[shipType].endAcross   = endCoordAcross;
+            ships[shipType].endDown     = endCoordDown;
+        }
+     }
+     }
+}
+
