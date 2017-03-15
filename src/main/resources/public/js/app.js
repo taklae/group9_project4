@@ -436,14 +436,6 @@ function previewShoot(coordinates, erase, shoot) {
     coordDown = Number(coordinates[1]);
 
     if (shoot) {
-<<<<<<< HEAD
-        if (document.getElementById("fire").checked == true)
-            fire(coordinates[0],coordinates[1]);
-        if (document.getElementById("scan").checked == true) {
-            scan(coordinates[0], coordinates[1]);
-        }
-        return;
-=======
 
         if( isShipPlaced(0) && isShipPlaced(1) && isShipPlaced(2) && isShipPlaced(3) && isShipPlaced(4)){
 
@@ -458,7 +450,6 @@ function previewShoot(coordinates, erase, shoot) {
             document.getElementById("mBox").innerHTML = "You must place all your ships first!"
             document.getElementById("mBox").style.backgroundColor = "#FDD835";
         }
->>>>>>> upstream/master
     }
 
 
@@ -475,5 +466,3 @@ function previewShoot(coordinates, erase, shoot) {
         }
     }
 }
-
-

@@ -332,25 +332,6 @@
    });
 });
 </script>
-
-<script>
-
-function toggleFire() {
-    if (document.getElementById("fire").checked == true)
-        document.getElementById("toggle").style.background = "#E64A19";
-    if (document.getElementById("fire").checked == false)
-        document.getElementById("toggle").style.background = "#FDD835";
-}
-
-function toggleScan() {
-    if (document.getElementById("fire").checked == true)
-        document.getElementById("toggle").style.background = "#E64A19";
-    if (document.getElementById("fire").checked == false)
-        document.getElementById("toggle").style.background = "#FDD835";
-}
-
-</script>
-
 <script>
 
 function hoverMessage(descriptionID) {
@@ -381,7 +362,6 @@ function hoverMessage(descriptionID) {
     }
 
 </script>
-
 <script>
 
     $('#MyBoard td').mouseover(function(){
@@ -421,5 +401,24 @@ function hoverMessage(descriptionID) {
     });
 
 </script>
+
+<script>
+
+    function toggleFire() {
+        if (document.getElementById("fire").checked == true)
+            document.getElementById("toggle").style.background = "#E64A19";
+        if (document.getElementById("fire").checked == false)
+            document.getElementById("toggle").style.background = "#FDD835";
+    }
+
+    function toggleScan() {
+        if (document.getElementById("fire").checked == true)
+            document.getElementById("toggle").style.background = "#E64A19";
+        if (document.getElementById("fire").checked == false)
+            document.getElementById("toggle").style.background = "#FDD835";
+    }
+
+</script>
+
 
 </html>
