@@ -193,40 +193,66 @@ $( '#TheirBoard td'  ).css("background-color", "#42A5F5");
 
 if(gameModel.scanResult == 1){
 
-    document.getElementById("mBox").innerHTML = "ALERT: Scan found at least one ship!"
-    document.getElementById("mBox").style.backgroundColor = "#FDD835";
+    document.getElementById("mBox").innerHTML = "Scan found at least one ship!"
+    document.getElementById("mBox").style.color = "black";
+    document.getElementById("mBox").style.borderColor = "#FDD835";
 
 } else if (gameModel.scanResult == 0){
 
-    document.getElementById("mBox").innerHTML = "ALERT: Scan found no ships!"
-    document.getElementById("mBox").style.backgroundColor = "#FDD835";
-
+    document.getElementById("mBox").innerHTML = "Scan found no ships!"
+    document.getElementById("mBox").style.color = "black";
+    document.getElementById("mBox").style.borderColor = "#e7e7e7";
 }
 
 if(gameModel.validPlace == 1){
 
-    document.getElementById("mBox").innerHTML = "ALERT: Invalid ship placement!";
-    document.getElementById("mBox").style.backgroundColor = "#FDD835";
+    document.getElementById("mBox").innerHTML = "Invalid ship placement!";
+    document.getElementById("mBox").style.color = "#E64A19";
+    document.getElementById("mBox").style.borderColor = "#e7e7e7";
 
     gameModel.validPlace = 0;
 }
 
 if(gameModel.AllShipsPlaced>1)
 {
-    document.getElementById("mBox").innerHTML = "ALERT: All shiprs have been placed already!";
-    document.getElementById("mBox").style.backgroundColor = "#FDD835";
+    document.getElementById("mBox").innerHTML = "All ships have been placed already!";
+    document.getElementById("mBox").style.color = "#E64A19";
+    document.getElementById("mBox").style.borderColor = "#e7e7e7";
+}
+
+if(gameModel.shipsHit == 1){
+
+    document.getElementById("mBox").innerHTML = "Hit!";
+    document.getElementById("mBox").style.color = "black";
+    document.getElementById("mBox").style.borderColor = "#FDD835";
+
+} else if (gameModel.shipsHit == 0){
+
+    document.getElementById("mBox").innerHTML = "Miss.";
+    document.getElementById("mBox").style.color = "black";
+    document.getElementById("mBox").style.borderColor = "#e7e7e7";
+}
+
+if(gameModel.repeatFire == 1){
+
+    document.getElementById("mBox").innerHTML = "You have already fired at that location.";
+    document.getElementById("mBox").style.color = "#E64A19";
+    document.getElementById("mBox").style.borderColor = "#e7e7e7";
+    gameModel.repeatFire = 0;
 }
 
 if(gameModel.isGameOver == 1) {
 
-    document.getElementById("mBox").innerHTML = "ALERT: You won!";
-    document.getElementById("mBox").style.backgroundColor = "#FDD835";
+    document.getElementById("mBox").innerHTML = "You win!";
+    document.getElementById("mBox").style.borderColor = "#FDD835";
 
 } else if (gameModel.isGameOver == 2){
 
-    document.getElementById("mBox").innerHTML = "ALERT: Computer won!";
-    document.getElementById("mBox").style.backgroundColor = "#FDD835";
+    document.getElementById("mBox").innerHTML = "Computer wins!";
+    document.getElementById("mBox").style.borderColor = "#FDD835";
 }
+
+
 
 displayShip(gameModel.aircraftCarrier);
 displayShip(gameModel.battleship);
@@ -447,8 +473,8 @@ function previewShoot(coordinates, erase, shoot) {
         }
         else{
 
-            document.getElementById("mBox").innerHTML = "You must place all your ships first!"
-            document.getElementById("mBox").style.backgroundColor = "#FDD835";
+            document.getElementById("mBox").innerHTML = "You must first place all your ships before you can fire or scan!"
+            document.getElementById("mBox").style.color = "#E64A19";
         }
     }
 

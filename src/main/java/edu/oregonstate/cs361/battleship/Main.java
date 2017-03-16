@@ -126,8 +126,10 @@ public class Main {
         Coordinate fire = new Coordinate(colInt, rowInt);
         if (! currModel.checkRepeatFireArray(fire, currModel.computerHits, currModel.computerMisses)) {
             currModel.shootAtComputer(rowInt, colInt);
-        }
-        currModel.shootAtPlayer();
+            currModel.shootAtPlayer();
+        } else
+            currModel.repeatFire = 1;
+
         currModel.isGameOver = currModel.checkWin(currModel.computerHits, currModel.playerHits);
         //Gson gson = new Gson();
         return gson.toJson(currModel);

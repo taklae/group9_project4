@@ -31,6 +31,8 @@ public class BattleshipModel {
     int scanResult = 2;
     int isGameOver = 0;
     int validPlace = 0;
+    int repeatFire = 0;
+    int shipsHit = 2;
 
     public BattleshipModel() {
         playerHits = new ArrayList<>();
@@ -90,36 +92,42 @@ public class BattleshipModel {
     public void shootAtComputer(int row, int col) {
         Coordinate coor = new Coordinate(row,col);
         if (computer_aircraftCarrier.covers(coor)) {
+            shipsHit = 1;
             if(computer_aircraftCarrier.armorless)
                 OneShootShip(computer_aircraftCarrier.length,computer_aircraftCarrier.start,computer_aircraftCarrier.end,"comp");
             else
                 computerHits.add(coor);
         }
         else if (computer_battleship.covers(coor)) {
+            shipsHit = 1;
             if(computer_battleship.armorless)
                 OneShootShip(computer_battleship.length,computer_battleship.start,computer_battleship.end,"comp");
             else
                 computerHits.add(coor);
         }
         else if (computer_clipper.covers(coor)) {
+            shipsHit = 1;
             if(computer_clipper.armorless)
                 OneShootShip(computer_clipper.length,computer_clipper.start,computer_clipper.end,"comp");
             else
                 computerHits.add(coor);
         }
         else if (computer_dinghy.covers(coor)) {
+            shipsHit = 1;
             if(computer_dinghy.armorless)
                 OneShootShip(computer_dinghy.length,computer_dinghy.start,computer_dinghy.end,"comp");
             else
                 computerHits.add(coor);
         }
         else if (computer_submarine.covers(coor)) {
+            shipsHit = 1;
             if(computer_submarine.armorless)
                 OneShootShip(computer_submarine.length,computer_submarine.start,computer_submarine.end,"comp");
             else
                 computerHits.add(coor);
         }
         else {
+            shipsHit = 0;
             computerMisses.add(coor);
         }
     }
@@ -239,6 +247,7 @@ public class BattleshipModel {
     }
 
     public void scan(int rowInt, int colInt) {
+        shipsHit = 2;
         Coordinate coor = new Coordinate(rowInt,colInt);
         ArrayList<Ship> shipList = new ArrayList<Ship>(Arrays.asList(computer_aircraftCarrier, computer_battleship, computer_clipper, computer_dinghy, computer_submarine));
         for (int i = 0; i< shipList.size(); i++) {

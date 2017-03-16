@@ -346,11 +346,11 @@ function hoverMessage(descriptionID) {
         break;
         case "FireDiv":
 
-            description = "Click on the computer's board to either scan or fire depending on the toggle switch. Scan will alert you if there's a ship 1-tile above, below, or next to your selected point";
+            description = "Click on the computer's board to either scan or fire depending on which is selected. Scan will alert you if there's a ship 1-tile above, below, or next to your selected point";
         break;
         case "newGame":
 
-            description = "Click to reset the game";
+            description = "Click to reset the game.";
 
         break;
 
@@ -358,7 +358,9 @@ function hoverMessage(descriptionID) {
 
     }
     document.getElementById("mBox").style.backgroundColor = "white";
+    document.getElementById("mBox").style.color = "black";
     document.getElementById("mBox").innerHTML = description;
+    document.getElementById("mBox").style.borderColor = "#e7e7e7";
     }
 
 </script>
