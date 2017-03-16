@@ -50,11 +50,6 @@ public class Ship {
         return false;
     }
 
-    public String getName() {
-        return name;
-    }
-
-
     public boolean scan(Coordinate coor) {
         if(covers(coor)){
             return true;
