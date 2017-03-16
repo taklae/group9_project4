@@ -33,6 +33,7 @@ public class BattleshipModel {
     int validPlace = 0;
     int repeatFire = 0;
     int shipsHit = 2;
+    int shoots=0;
 
     public BattleshipModel() {
         playerHits = new ArrayList<>();
@@ -132,7 +133,25 @@ public class BattleshipModel {
         }
     }
 
-    public void shootAtPlayer() {
+    //AI for easy mode
+    public void shootAtPlayerEasy(){
+        Coordinate coor=new Coordinate(0,0);
+        int sum;
+
+        sum=shoots;
+
+        do{
+            coor.setDown((sum/10+1));
+            coor.setAcross((sum%10+1));
+            sum++;
+            shoots++;
+        } while(checkRepeatFire(coor));
+
+        playerShot(coor);
+    }
+
+
+   public void shootAtPlayer() {
         int max = 10;
         int min = 1;
         Random random = new Random(1);
