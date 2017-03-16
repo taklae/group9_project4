@@ -41,11 +41,11 @@
         </div>
         <div id="FireDiv" onmouseover="hoverMessage(this.id);">
             <div class="switch">
-                <input type="radio" class="switch-input" name="view" value="fire" id="fire" checked>
+                <input type="radio" onclick="toggleFire()" class="switch-input" name="view" value="fire" id="fire" checked>
                 <label for="fire" class="switch-label switch-label-off">Fire</label>
-                <input type="radio" class="switch-input" name="view" value="scan" id="scan">
+                <input type="radio" onclick="toggleScan()" class="switch-input" name="view" value="scan" id="scan">
                 <label for="scan" class="switch-label switch-label-on">Scan</label>
-                <span class="switch-selection"></span>
+                <span class="switch-selection" id="toggle"></span>
             </div>
         </div>
     </div>
@@ -346,11 +346,11 @@ function hoverMessage(descriptionID) {
         break;
         case "FireDiv":
 
-            description = "Click on the computer's board to either scan or fire depending on the toggle switch. Scan will alert you if there's a ship 1-tile above, below, or next to your selected point";
+            description = "Click on the computer's board to either scan or fire depending on which is selected. Scan will alert you if there's a ship 1-tile above, below, or next to your selected point";
         break;
         case "newGame":
 
-            description = "Click to reset the game";
+            description = "Click to reset the game.";
 
         break;
 
@@ -358,7 +358,9 @@ function hoverMessage(descriptionID) {
 
     }
     document.getElementById("mBox").style.backgroundColor = "white";
+    document.getElementById("mBox").style.color = "black";
     document.getElementById("mBox").innerHTML = description;
+    document.getElementById("mBox").style.borderColor = "#e7e7e7";
     }
 
 </script>
@@ -401,5 +403,24 @@ function hoverMessage(descriptionID) {
     });
 
 </script>
+
+<script>
+
+    function toggleFire() {
+        if (document.getElementById("fire").checked == true)
+            document.getElementById("toggle").style.background = "#E64A19";
+        if (document.getElementById("fire").checked == false)
+            document.getElementById("toggle").style.background = "#FDD835";
+    }
+
+    function toggleScan() {
+        if (document.getElementById("fire").checked == true)
+            document.getElementById("toggle").style.background = "#E64A19";
+        if (document.getElementById("fire").checked == false)
+            document.getElementById("toggle").style.background = "#FDD835";
+    }
+
+</script>
+
 
 </html>
