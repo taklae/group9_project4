@@ -48,7 +48,7 @@ public class BattleshipModel {
         } if(shipName.equalsIgnoreCase("battleship")) {
             return battleship;
         } if(shipName.equalsIgnoreCase("clipper")) {
-        return clipper;
+            return clipper;
         } if(shipName.equalsIgnoreCase("dinghy")) {
             return dinghy;
         }if(shipName.equalsIgnoreCase("submarine")) {
@@ -92,45 +92,25 @@ public class BattleshipModel {
 
     public void shootAtComputer(int row, int col) {
         Coordinate coor = new Coordinate(row,col);
-        if (computer_aircraftCarrier.covers(coor)) {
-            shipsHit = 1;
-            if(computer_aircraftCarrier.armorless)
-                OneShootShip(computer_aircraftCarrier.length,computer_aircraftCarrier.start,computer_aircraftCarrier.end,"comp");
-            else
-                computerHits.add(coor);
+        ArrayList<Ship> shipList = new ArrayList<Ship>(Arrays.asList(computer_aircraftCarrier, computer_battleship, computer_clipper, computer_dinghy, computer_submarine));
+        for (int i = 0; i< shipList.size(); i++) {
+            Ship temp = shipList.get(i);
+            if (temp.covers(coor)) {
+                if (temp instanceof CivilianShip) {
+                    if (((CivilianShip) temp).getArmorless().equals("armorless")) {
+                        OneShootShip(temp.length, temp.start, temp.end, "comp");
+                        shipsHit = 1;
+                        return;
+                    }
+                } else {
+                    shipsHit = 1;
+                    computerHits.add(coor);
+                    return;
+                }
+            }
         }
-        else if (computer_battleship.covers(coor)) {
-            shipsHit = 1;
-            if(computer_battleship.armorless)
-                OneShootShip(computer_battleship.length,computer_battleship.start,computer_battleship.end,"comp");
-            else
-                computerHits.add(coor);
-        }
-        else if (computer_clipper.covers(coor)) {
-            shipsHit = 1;
-            if(computer_clipper.armorless)
-                OneShootShip(computer_clipper.length,computer_clipper.start,computer_clipper.end,"comp");
-            else
-                computerHits.add(coor);
-        }
-        else if (computer_dinghy.covers(coor)) {
-            shipsHit = 1;
-            if(computer_dinghy.armorless)
-                OneShootShip(computer_dinghy.length,computer_dinghy.start,computer_dinghy.end,"comp");
-            else
-                computerHits.add(coor);
-        }
-        else if (computer_submarine.covers(coor)) {
-            shipsHit = 1;
-            if(computer_submarine.armorless)
-                OneShootShip(computer_submarine.length,computer_submarine.start,computer_submarine.end,"comp");
-            else
-                computerHits.add(coor);
-        }
-        else {
-            shipsHit = 0;
-            computerMisses.add(coor);
-        }
+        shipsHit = 0;
+        computerMisses.add(coor);
     }
 
     //AI for easy mode
@@ -191,39 +171,23 @@ public class BattleshipModel {
     }
 
     void playerShot(Coordinate coor) {
+        ArrayList<Ship> shipList = new ArrayList<Ship>(Arrays.asList(aircraftCarrier, battleship, clipper, dinghy, submarine));
+        for (int i = 0; i< shipList.size(); i++) {
+            Ship temp = shipList.get(i);
+            if (temp.covers(coor)) {
+                if (temp instanceof CivilianShip) {
+                    if (((CivilianShip) temp).getArmorless().equals("armorless")) {
+                        OneShootShip(temp.length, temp.start, temp.end, "player");
+                        return;
+                    }
+                } else {
+                    playerHits.add(coor);
+                    return;
+                }
+            }
+        }
 
-        if (aircraftCarrier.covers(coor)) {
-            if(aircraftCarrier.armorless)
-                OneShootShip(aircraftCarrier.length,aircraftCarrier.start,aircraftCarrier.end,"player");
-            else
-                playerHits.add(coor);
-        }
-        else if (battleship.covers(coor)) {
-            if(battleship.armorless)
-                OneShootShip(battleship.length,battleship.start,battleship.end,"player");
-            else
-                playerHits.add(coor);
-        }
-        else if (clipper.covers(coor)) {
-            if(clipper.armorless)
-                OneShootShip(clipper.length,clipper.start,clipper.end,"player");
-            else
-                playerHits.add(coor);
-        }
-        else if (dinghy.covers(coor)) {
-            if(dinghy.armorless)
-                OneShootShip(dinghy.length,dinghy.start,dinghy.end,"player");
-            else
-                playerHits.add(coor);
-        }
-        else if (submarine.covers(coor)) {
-            if(submarine.armorless)
-                OneShootShip(submarine.length,submarine.start,submarine.end,"player");
-            else
-                playerHits.add(coor);
-        }
-        else
-            playerMisses.add(coor);
+        playerMisses.add(coor);
     }
 
     void OneShootShip(int length, Coordinate StartCord, Coordinate EndCord ,String who){
@@ -267,21 +231,22 @@ public class BattleshipModel {
 
     public void scan(int rowInt, int colInt) {
         shipsHit = 2;
+        String type;
         Coordinate coor = new Coordinate(rowInt,colInt);
         ArrayList<Ship> shipList = new ArrayList<Ship>(Arrays.asList(computer_aircraftCarrier, computer_battleship, computer_clipper, computer_dinghy, computer_submarine));
         for (int i = 0; i< shipList.size(); i++) {
             Ship temp = shipList.get(i);
-            if (temp.stealth == false && temp.scan(coor)) {
+            if (!(temp instanceof MilitaryShip) && temp.scan(coor)) {
                 scanResult = 1;
                 return;
+            } else if (temp instanceof MilitaryShip) {
+                 type = ((MilitaryShip) temp).getStealth();
+                 if (type.equals("stealth"))
+                     scanResult = 0;
             } else {
                 scanResult = 0;
             }
         }
-    }
-
-    public int getScanResult() {
-        return scanResult;
     }
 
     public void  RandShips(String who) {
@@ -417,6 +382,18 @@ public class BattleshipModel {
         }
     }
 
+    public boolean checkRepeatFireArray(Coordinate coor, List<Coordinate> hit, List<Coordinate> miss) {
+        for (Coordinate aHit : hit) {
+            if (coor.getAcross() == aHit.getDown() && coor.getDown() == aHit.getAcross())
+                return true;
+        }
+        for (Coordinate aMiss : miss) {
+            if (coor.getAcross() == aMiss.getDown() && coor.getDown() == aMiss.getAcross())
+                return true;
+        }
+        return false;
+    }
+
     public boolean checkRepeatFire(Coordinate coor){
         for (Coordinate aHit : playerHits) {
             if (coor.getDown() == aHit.getDown() && coor.getAcross() == aHit.getAcross())
@@ -424,19 +401,6 @@ public class BattleshipModel {
         }
         for (Coordinate aMiss : playerMisses) {
             if (coor.getDown() == aMiss.getDown() && coor.getAcross() == aMiss.getAcross())
-                return true;
-        }
-        return false;
-    }
-
-
-    static boolean checkRepeatFireArray(Coordinate cord, List<Coordinate> hit, List<Coordinate> miss) {
-        for (Coordinate aHit : hit) {
-            if (cord.getAcross() == aHit.getDown() && cord.getDown() == aHit.getAcross())
-                return true;
-        }
-        for (Coordinate aMiss : miss) {
-            if (cord.getAcross() == aMiss.getDown() && cord.getDown() == aMiss.getAcross())
                 return true;
         }
         return false;

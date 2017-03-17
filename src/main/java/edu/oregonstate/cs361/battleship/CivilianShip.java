@@ -6,7 +6,10 @@ package edu.oregonstate.cs361.battleship;
 public class CivilianShip extends Ship {
     public CivilianShip(String n, int l,Coordinate s, Coordinate e) {
         super(n, l, s, e);
-        armorless = true;
     }
 
+    //Function "getAmorless" is only in the CivilianShip class to follow OO principles.
+    public String getArmorless() {
+        return "armorless";
+    }
 }
