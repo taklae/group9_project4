@@ -41,6 +41,7 @@ public class Main {
         HardAI bm = new HardAI();
         Gson gson = new Gson();
         bm.hardAI = 1;
+        bm.RandShips("AI");
         System.out.println(gson.toJson(bm));
         return gson.toJson(bm);
     }
