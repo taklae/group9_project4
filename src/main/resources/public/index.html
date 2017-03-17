@@ -180,8 +180,8 @@
             </table>
         </div>
         <div class="controlRegion">
-            <button id="hardAI" class="enabled", onclick="HardAI()">Hard AI</button>
-            <button onmouseover="hoverMessage(this.id);" id="random" class="enabled", onclick="RandPlaceShips()">Randomize</button>
+            <button onmouseover="hoverMessage(this.id);" id="changeModeB" class="enabled", style="background-color:#4CAF50;", onclick="changeMode()">Easy mode</button>
+            <button onmouseover="hoverMessage(this.id);" id="random", style="margin-top:20px; margin-left: 5px; margin-right: 5px;", class="enabled", onclick="RandPlaceShips()">Randomize</button>
             <button onmouseover="hoverMessage(this.id);" id="newGame", style="margin-top:20px;", onclick="NewGame()" disabled>New Game</button>
             <div id="mBox" class="messageBox">
                 <p>Welcome to battleship! Click randomize, or click to place your ships using the drop-down menus above your board to get started.</p>
@@ -354,6 +354,11 @@ function hoverMessage(descriptionID) {
             description = "Click to reset the game.";
 
         break;
+        case "changeModeB":
+
+            description = "Click to toggle the difficulty of your opponent. Changing difficulty will reset the game!";
+
+        break;
 
 
 
@@ -361,7 +366,6 @@ function hoverMessage(descriptionID) {
     document.getElementById("mBox").style.backgroundColor = "white";
     document.getElementById("mBox").style.color = "black";
     document.getElementById("mBox").innerHTML = description;
-    document.getElementById("mBox").style.borderColor = "#e7e7e7";
     }
 
 </script>

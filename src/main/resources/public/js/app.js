@@ -33,8 +33,19 @@ function NewGame(){
         ships[i].endDown = 0;
     }
 
+    var mode;
+    if(document.getElementById("changeModeB").innerText == "Hard mode"){
+
+            mode = "/hardAI";
+    }
+    else{
+            mode = "/easyAI";
+    }
+
+
+
     var request = $.ajax({
-         url: "/newGame",
+         url: mode,
          method: "post",
          data: JSON.stringify(gameModel),
          contentType: "application/json; charset=utf-8",
@@ -53,7 +64,9 @@ function NewGame(){
 
 }
 
-function HardAI(){
+function changeMode(){
+
+    var mode;
 
     for( var i = 0; i < 5; i++ ){
 
@@ -63,8 +76,21 @@ function HardAI(){
         ships[i].endDown = 0;
     }
 
+    if(document.getElementById("changeModeB").innerText == "Easy mode"){
+
+        document.getElementById("changeModeB").innerText = "Hard mode";
+        document.getElementById("changeModeB").style.background = "#ff6535";
+        mode = "/hardAI";
+    }
+    else{
+
+        document.getElementById("changeModeB").innerText = "Easy mode";
+        document.getElementById("changeModeB").style.background = "#4CAF50";
+        mode = "/easyAI";
+    }
+
     var request = $.ajax({
-        url: "/hardAI",
+        url: mode,
         method: "post",
         data: JSON.stringify(gameModel),
         contentType: "application/json; charset=utf-8",
@@ -224,21 +250,18 @@ $( '#TheirBoard td'  ).css("background-color", "#42A5F5");
 if(gameModel.scanResult == 1){
 
     document.getElementById("mBox").innerHTML = "Scan found at least one ship!"
-    document.getElementById("mBox").style.color = "black";
-    document.getElementById("mBox").style.borderColor = "#FDD835";
+    document.getElementById("mBox").style.background = "#ffffa3";
 
 } else if (gameModel.scanResult == 0){
 
     document.getElementById("mBox").innerHTML = "Scan found no ships!"
-    document.getElementById("mBox").style.color = "black";
-    document.getElementById("mBox").style.borderColor = "#e7e7e7";
+    document.getElementById("mBox").style.background = "#ffffff";
 }
 
 if(gameModel.validPlace == 1){
 
     document.getElementById("mBox").innerHTML = "Invalid ship placement!";
-    document.getElementById("mBox").style.color = "#E64A19";
-    document.getElementById("mBox").style.borderColor = "#e7e7e7";
+    document.getElementById("mBox").style.background = "#ffffa3";
 
     gameModel.validPlace = 0;
 }
@@ -246,40 +269,37 @@ if(gameModel.validPlace == 1){
 if(gameModel.AllShipsPlaced>1)
 {
     document.getElementById("mBox").innerHTML = "All ships have been placed already!";
-    document.getElementById("mBox").style.color = "#E64A19";
-    document.getElementById("mBox").style.borderColor = "#e7e7e7";
+    document.getElementById("mBox").style.background = "#ffffa3";
 }
 
 if(gameModel.shipsHit == 1){
 
     document.getElementById("mBox").innerHTML = "Hit!";
     document.getElementById("mBox").style.color = "black";
-    document.getElementById("mBox").style.borderColor = "#FDD835";
+    document.getElementById("mBox").style.background = "#ffffa3";
 
 } else if (gameModel.shipsHit == 0){
 
     document.getElementById("mBox").innerHTML = "Miss.";
-    document.getElementById("mBox").style.color = "black";
-    document.getElementById("mBox").style.borderColor = "#e7e7e7";
+    document.getElementById("mBox").style.background = "#ffffff";
 }
 
 if(gameModel.repeatFire == 1){
 
     document.getElementById("mBox").innerHTML = "You have already fired at that location.";
-    document.getElementById("mBox").style.color = "#E64A19";
-    document.getElementById("mBox").style.borderColor = "#e7e7e7";
+    document.getElementById("mBox").style.background = "#ffffa3";
     gameModel.repeatFire = 0;
 }
 
 if(gameModel.isGameOver == 1) {
 
     document.getElementById("mBox").innerHTML = "You win!";
-    document.getElementById("mBox").style.borderColor = "#FDD835";
+    document.getElementById("mBox").style.background = "#ffffa3";
 
 } else if (gameModel.isGameOver == 2){
 
     document.getElementById("mBox").innerHTML = "Computer wins!";
-    document.getElementById("mBox").style.borderColor = "#FDD835";
+    document.getElementById("mBox").style.background = "#ffffa3";
 }
 
 
@@ -503,8 +523,8 @@ function previewShoot(coordinates, erase, shoot) {
         }
         else{
 
-            document.getElementById("mBox").innerHTML = "You must first place all your ships before you can fire or scan!"
-            document.getElementById("mBox").style.color = "#E64A19";
+            document.getElementById("mBox").innerHTML = "You must first place all your ships before you can fire or scan!";
+            document.getElementById("mBox").style.background = "#ffffa3";
         }
     }
 
