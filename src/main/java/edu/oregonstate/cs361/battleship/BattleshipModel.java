@@ -11,17 +11,17 @@ public class BattleshipModel {
 
     int AllShipsPlaced=0;
 
-    private Ship aircraftCarrier = new Ship("AircraftCarrier",5, new Coordinate(0,0),new Coordinate(0,0));
-    private MilitaryShip battleship = new MilitaryShip("Battleship",4, new Coordinate(0,0),new Coordinate(0,0));
-    private CivilianShip clipper = new CivilianShip("Clipper", 3, new Coordinate(0,0),new Coordinate(0,0)  );
-    private CivilianShip dinghy= new CivilianShip("Dinghy", 1, new Coordinate(0,0),new Coordinate(0,0)  );
-    private MilitaryShip submarine = new MilitaryShip("Submarine",2, new Coordinate(0,0),new Coordinate(0,0));
+    public  Ship aircraftCarrier = new Ship("AircraftCarrier",5, new Coordinate(0,0),new Coordinate(0,0));
+    public  MilitaryShip battleship = new MilitaryShip("Battleship",4, new Coordinate(0,0),new Coordinate(0,0));
+    public  CivilianShip clipper = new CivilianShip("Clipper", 3, new Coordinate(0,0),new Coordinate(0,0)  );
+    public  CivilianShip dinghy= new CivilianShip("Dinghy", 1, new Coordinate(0,0),new Coordinate(0,0)  );
+    public  MilitaryShip submarine = new MilitaryShip("Submarine",2, new Coordinate(0,0),new Coordinate(0,0));
 
-    private Ship computer_aircraftCarrier = new Ship("Computer_AircraftCarrier",5, new Coordinate(2,2),new Coordinate(2,6));
-    private MilitaryShip computer_battleship = new MilitaryShip("Computer_Battleship",4, new Coordinate(2,8),new Coordinate(5,8));
-    private CivilianShip computer_clipper = new CivilianShip("Clipper", 3, new Coordinate(4,1),new Coordinate(4,3)  );
-    private CivilianShip computer_dinghy= new CivilianShip("Dinghy", 1, new Coordinate(7,3),new Coordinate(7,3)  );
-    private MilitaryShip computer_submarine = new MilitaryShip("Computer_Submarine",2, new Coordinate(9,6),new Coordinate(9,7));
+    public  Ship computer_aircraftCarrier = new Ship("Computer_AircraftCarrier",5, new Coordinate(2,2),new Coordinate(2,6));
+    public  MilitaryShip computer_battleship = new MilitaryShip("Computer_Battleship",4, new Coordinate(2,8),new Coordinate(5,8));
+    public  CivilianShip computer_clipper = new CivilianShip("Clipper", 3, new Coordinate(4,1),new Coordinate(4,3)  );
+    public  CivilianShip computer_dinghy= new CivilianShip("Dinghy", 1, new Coordinate(7,3),new Coordinate(7,3)  );
+    public  MilitaryShip computer_submarine = new MilitaryShip("Computer_Submarine",2, new Coordinate(9,6),new Coordinate(9,7));
 
     ArrayList<Coordinate> playerHits;
     ArrayList<Coordinate> playerMisses;
@@ -35,6 +35,8 @@ public class BattleshipModel {
     int shipsHit = 2;
     int shoots=0;
     int hitSearch = 0, direction = 1, inc = 0;
+    int hardAI = 0;
+
     Coordinate originalHit = new Coordinate(0,0);
     Coordinate searchHit = new Coordinate(0, 0);
 
@@ -118,7 +120,7 @@ public class BattleshipModel {
     }
 
     //AI for easy mode
-    public void shootAtPlayerEasy(){
+    public void shootAtPlayer(){
         Coordinate coor=new Coordinate(0,0);
         int sum;
 
@@ -134,69 +136,6 @@ public class BattleshipModel {
         playerShot(coor);
     }
 
-
-   public void shootAtPlayer() {
-        int max = 10;
-        int min = 1;
-        Random random = new Random(1);
-
-        if(hitSearch == 1){//follow new shoot search pattern
-            if(direction == 1){
-                System.out.println("Firing up again");
-                searchHit.setAcross(originalHit.getAcross() - inc);
-                searchHit.setDown(originalHit.getDown());
-                if(searchHit.getDown() < 1) {
-                    searchHit.setDown(1);
-                    direction += 1;
-                    inc = 1;
-                }
-                playerShot(searchHit);
-            }else if(direction == 2){
-                System.out.println("firing right again");
-                searchHit.setDown(originalHit.getDown() + inc);
-                searchHit.setAcross(originalHit.getAcross());
-                if(searchHit.getAcross() > 10){
-                    searchHit.setAcross(10);
-                    direction += 1;
-                    inc = 1;
-                }
-                playerShot(searchHit);
-            }else if(direction == 3){
-                System.out.println("firing down again");
-                searchHit.setDown(originalHit.getDown());
-                searchHit.setAcross(originalHit.getAcross() + inc);
-                if(searchHit.getDown() > 10){
-                    searchHit.setDown(10);
-                    direction += 1;
-                    inc = 1;
-                }
-                playerShot(searchHit);
-            }else if(direction == 4){
-                System.out.println("firing left again");
-                searchHit.setDown(originalHit.getDown() - inc);
-                searchHit.setAcross(originalHit.getAcross());
-                if(searchHit.getAcross() < 1){
-                    searchHit.setAcross(1);
-                    direction = 1;
-                    hitSearch = 0;
-                    inc = 1;
-                }
-                playerShot(searchHit);
-            }
-        }else {//fire randomly
-            int randRow = random.nextInt(max - min + 1) + min;
-            int randCol = random.nextInt(max - min + 1) + min;
-            Coordinate coor = new Coordinate(randCol, randRow);
-
-            while (checkRepeatFire(coor)) {
-                randRow = random.nextInt(max - min + 1) + min;
-                randCol = random.nextInt(max - min + 1) + min;
-                coor.setAcross(randCol);
-                coor.setDown(randRow);
-            }
-            playerShot(coor);
-        }
-    }
 
     public int checkCor(String id, int x, int y){
         Coordinate cor = new Coordinate(y, x);
@@ -230,14 +169,6 @@ public class BattleshipModel {
                         return;
                     }
                 } else {
-                    if(hitSearch == 0) {
-                        System.out.println("changing to targeted fire mode");
-                        originalHit.setDown(coor.getDown());
-                        originalHit.setAcross(coor.getAcross());
-                        hitSearch = 1;
-                    }
-                    inc += 1;
-
                     playerHits.add(coor);
                     return;
                 }
@@ -245,17 +176,6 @@ public class BattleshipModel {
         }
 
         playerMisses.add(coor);
-        if(hitSearch == 1) {
-            if (direction < 4) {
-                direction += 1;
-                inc = 1;
-            }else{
-                direction = 1;
-                inc = 1;
-                hitSearch = 0;
-                System.out.println("ending targeted fire, returning to random");
-            }
-        }
     }
 
     void OneShootShip(int length, Coordinate StartCord, Coordinate EndCord ,String who){
