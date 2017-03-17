@@ -27,6 +27,8 @@ public class Main {
         post("/newGame", (req, res) -> newModel());
         //This will listen to POST requests for a new game, and then return a clean model
         post("/hardAI", (req, res) -> hardAI());
+
+        post("/easyAI", (req, res) -> easyAI());
     }
 
     //This function returns a new model
@@ -41,7 +43,16 @@ public class Main {
         HardAI bm = new HardAI();
         Gson gson = new Gson();
         bm.hardAI = 1;
-        bm.RandShips("AI");
+        //bm.RandShips("AI");
+        System.out.println(gson.toJson(bm));
+        return gson.toJson(bm);
+    }
+
+    private static String easyAI() {
+        HardAI bm = new HardAI();
+        Gson gson = new Gson();
+        bm.hardAI = 0;
+        //bm.RandShips("AI");
         System.out.println(gson.toJson(bm));
         return gson.toJson(bm);
     }
