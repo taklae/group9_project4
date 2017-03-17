@@ -34,7 +34,7 @@ public class BattleshipModel {
     int repeatFire = 0;
     int shipsHit = 2;
     int shoots=0;
-    int hitSearch = 0, direction = 1, inc = 1;
+    int hitSearch = 0, direction = 1, inc = 0;
     Coordinate originalHit = new Coordinate(0,0);
     Coordinate searchHit = new Coordinate(0, 0);
 
@@ -143,8 +143,8 @@ public class BattleshipModel {
         if(hitSearch == 1){//follow new shoot search pattern
             if(direction == 1){
                 System.out.println("Firing up again");
-                searchHit.setAcross(originalHit.getAcross());
-                searchHit.setDown(originalHit.getDown() - inc);
+                searchHit.setAcross(originalHit.getAcross() - inc);
+                searchHit.setDown(originalHit.getDown());
                 if(searchHit.getDown() < 1) {
                     searchHit.setDown(1);
                     direction += 1;
@@ -153,8 +153,8 @@ public class BattleshipModel {
                 playerShot(searchHit);
             }else if(direction == 2){
                 System.out.println("firing right again");
-                searchHit.setDown(originalHit.getDown());
-                searchHit.setAcross(originalHit.getAcross() + inc);
+                searchHit.setDown(originalHit.getDown() + inc);
+                searchHit.setAcross(originalHit.getAcross());
                 if(searchHit.getAcross() > 10){
                     searchHit.setAcross(10);
                     direction += 1;
@@ -163,8 +163,8 @@ public class BattleshipModel {
                 playerShot(searchHit);
             }else if(direction == 3){
                 System.out.println("firing down again");
-                searchHit.setDown(originalHit.getDown() + inc);
-                searchHit.setAcross(originalHit.getAcross());
+                searchHit.setDown(originalHit.getDown());
+                searchHit.setAcross(originalHit.getAcross() + inc);
                 if(searchHit.getDown() > 10){
                     searchHit.setDown(10);
                     direction += 1;
@@ -173,8 +173,8 @@ public class BattleshipModel {
                 playerShot(searchHit);
             }else if(direction == 4){
                 System.out.println("firing left again");
-                searchHit.setDown(originalHit.getDown());
-                searchHit.setAcross(originalHit.getAcross() - inc);
+                searchHit.setDown(originalHit.getDown() - inc);
+                searchHit.setAcross(originalHit.getAcross());
                 if(searchHit.getAcross() < 1){
                     searchHit.setAcross(1);
                     direction = 1;
@@ -246,7 +246,7 @@ public class BattleshipModel {
 
         playerMisses.add(coor);
         if(hitSearch == 1) {
-            if (direction <= 4) {
+            if (direction < 4) {
                 direction += 1;
                 inc = 1;
             }else{
