@@ -25,13 +25,22 @@ public class Main {
         post("/placeShip/:id/:row/:col/:orientation", (req, res) -> placeShip(req));
         //This will listen to POST requests for a new game, and then return a clean model
         post("/newGame", (req, res) -> newModel());
-
+        //This will listen to POST requests for a new game, and then return a clean model
+        post("/hardAI", (req, res) -> hardAI());
     }
 
     //This function returns a new model
     private static String newModel() {
         BattleshipModel bm = new BattleshipModel();
         Gson gson = new Gson();
+        System.out.println(gson.toJson(bm));
+        return gson.toJson(bm);
+    }
+
+    private static String hardAI() {
+        HardAI bm = new HardAI();
+        Gson gson = new Gson();
+        bm.hardAI = 1;
         System.out.println(gson.toJson(bm));
         return gson.toJson(bm);
     }
@@ -46,6 +55,8 @@ public class Main {
             e.printStackTrace();
         }
         BattleshipModel modelFromReq = gson.fromJson(result, BattleshipModel.class);
+        if (modelFromReq.hardAI == 1)
+            modelFromReq = gson.fromJson(result, HardAI.class);
         return modelFromReq;
     }
 
@@ -89,6 +100,7 @@ public class Main {
     //This controller
     private static String placeShip(Request req) {
         BattleshipModel currModel = getModelFromReq(req);
+
         String id = req.params("id");
         String row = req.params("row");
         String col = req.params("col");
@@ -112,7 +124,6 @@ public class Main {
     }
 
     private static String fireAt(Request req) {
-
         BattleshipModel currModel = getModelFromReq(req);
 
         Gson gson = new Gson();

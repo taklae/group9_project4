@@ -53,6 +53,36 @@ function NewGame(){
 
 }
 
+function HardAI(){
+
+    for( var i = 0; i < 5; i++ ){
+
+        ships[i].startAcross = 0;
+        ships[i].endAcross = 0;
+        ships[i].startDown = 0;
+        ships[i].endDown = 0;
+    }
+
+    var request = $.ajax({
+        url: "/hardAI",
+        method: "post",
+        data: JSON.stringify(gameModel),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json"
+    });
+
+    request.done(function( currModel ) {
+        displayGameState(currModel);
+        gameModel = currModel;
+
+    });
+
+    request.fail(function( jqXHR, textStatus ) {
+        alert( "Request failed: " + textStatus );
+    });
+
+}
+
 function RandPlaceShips(){
     console.log("randomized ships");
     var request = $.ajax({
