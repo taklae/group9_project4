@@ -9,8 +9,6 @@ public class Ship {
     protected int length;
     protected Coordinate start;
     protected Coordinate end;
-    protected boolean stealth = false;
-    protected boolean armorless = false;
 
     public Ship(String n, int l,Coordinate s, Coordinate e) {
         name = n;
@@ -51,11 +49,6 @@ public class Ship {
         }
         return false;
     }
-
-    public String getName() {
-        return name;
-    }
-
 
     public boolean scan(Coordinate coor) {
         if(covers(coor)){
