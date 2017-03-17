@@ -501,6 +501,11 @@ function previewShip(coordinates, erase, place){
             ships[shipType].startDown   = startCoordDown;
             ships[shipType].endAcross   = endCoordAcross;
             ships[shipType].endDown     = endCoordDown;
+
+            var nextShip = (document.getElementById("shipSelec").selectedIndex+1)%5;
+            if( !isShipPlaced(nextShip) ){
+                document.getElementById("shipSelec").selectedIndex = (document.getElementById("shipSelec").selectedIndex+1)%5;
+            }
         }
 
      }

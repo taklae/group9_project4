@@ -24,7 +24,7 @@
     <div class="toolbar">
 
 
-        <div id="AircraftcarrierDiv">
+        <div id="AircraftcarrierDiv" onmouseover="hoverMessage(this.id);">
             Ship:
             <select name="shipSelec" id="shipSelec">
                 <option value="aircraftCarrier">Aircraft Carrier</option>
@@ -357,6 +357,11 @@ function hoverMessage(descriptionID) {
         case "changeModeB":
 
             description = "Click to toggle the difficulty of your opponent. Changing difficulty will reset the game!";
+
+        break;
+        case "AircraftcarrierDiv":
+
+            description = "Select your desired ship and its orientation. Move your mouse over the tiles to get a preview, then click to place";
 
         break;
 
