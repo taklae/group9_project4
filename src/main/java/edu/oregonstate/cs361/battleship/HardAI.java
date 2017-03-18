@@ -16,29 +16,34 @@ public class HardAI extends BattleshipModel {
 
         if (hitSearch == 1) {//follow new shoot search pattern
             if (direction == 1) {
-                System.out.println("Firing up again");
                 searchHit.setAcross(originalHit.getAcross() - inc);
                 searchHit.setDown(originalHit.getDown());
+                while(checkRepeatFire(searchHit))
+                    searchHit.setAcross(searchHit.getAcross() - 1);
                 if (searchHit.getDown() < 1) {
                     searchHit.setDown(1);
                     direction += 1;
                     inc = 1;
                 }
-                playerShot(searchHit);
+                if(!checkRepeatFire(searchHit))
+                    playerShot(searchHit);
             } else if (direction == 2) {
-                System.out.println("firing right again");
                 searchHit.setDown(originalHit.getDown() + inc);
                 searchHit.setAcross(originalHit.getAcross());
+                while(checkRepeatFire(searchHit))
+                    searchHit.setDown(searchHit.getDown() + 1);
                 if (searchHit.getAcross() > 10) {
                     searchHit.setAcross(10);
                     direction += 1;
                     inc = 1;
                 }
-                playerShot(searchHit);
+                if(!checkRepeatFire(searchHit))
+                    playerShot(searchHit);
             } else if (direction == 3) {
-                System.out.println("firing down again");
                 searchHit.setDown(originalHit.getDown());
                 searchHit.setAcross(originalHit.getAcross() + inc);
+                while(checkRepeatFire(searchHit))
+                    searchHit.setAcross(searchHit.getAcross() + 1);
                 if (searchHit.getDown() > 10) {
                     searchHit.setDown(10);
                     direction += 1;
@@ -46,14 +51,15 @@ public class HardAI extends BattleshipModel {
                 }
                 playerShot(searchHit);
             } else if (direction == 4) {
-                System.out.println("firing left again");
                 searchHit.setDown(originalHit.getDown() - inc);
                 searchHit.setAcross(originalHit.getAcross());
+                while(checkRepeatFire(searchHit))
+                    searchHit.setDown(searchHit.getDown() - 1);
                 if (searchHit.getAcross() < 1) {
                     searchHit.setAcross(1);
                     direction = 1;
                     hitSearch = 0;
-                    inc = 1;
+                    inc = 0;
                 }
                 playerShot(searchHit);
             }
@@ -70,6 +76,7 @@ public class HardAI extends BattleshipModel {
             }
             playerShot(coor);
         }
+        System.out.println(playerHits.size());
     }
 
     void playerShot(Coordinate coor) {
@@ -104,7 +111,7 @@ public class HardAI extends BattleshipModel {
                 inc = 1;
             }else{
                 direction = 1;
-                inc = 1;
+                inc = 0;
                 hitSearch = 0;
                 System.out.println("ending targeted fire, returning to random");
             }

@@ -237,6 +237,10 @@ public class BattleshipModel {
         }
     }
 
+    public int getScanResult() {
+        return scanResult;
+    }
+
     public void  RandShips(String who) {
         int[][] board = new int[10][10];
         int lengths[] = {2, 1, 3, 4, 5};
@@ -350,12 +354,13 @@ public class BattleshipModel {
                     computer_battleship.setLocation(new Coordinate(StartCord[0]+1,StartCord[1]+1),new Coordinate(EndCord[0]+1,EndCord[1]+1));
             }
             else if(k==4){
-                if(player)
-                    aircraftCarrier.setLocation(new Coordinate(StartCord[0]+1,StartCord[1]+1),new Coordinate(EndCord[0]+1,EndCord[1]+1));
+                if(player) {
+                    aircraftCarrier.setLocation(new Coordinate(StartCord[0] + 1, StartCord[1] + 1), new Coordinate(EndCord[0] + 1, EndCord[1] + 1));
+                    AllShipsPlaced = 1;
+                }
                 else
                     computer_aircraftCarrier.setLocation(new Coordinate(StartCord[0]+1,StartCord[1]+1),new Coordinate(EndCord[0]+1,EndCord[1]+1));
 
-                AllShipsPlaced=1;
             }
         }
     }

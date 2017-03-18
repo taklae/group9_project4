@@ -43,7 +43,7 @@ public class Main {
         HardAI bm = new HardAI();
         Gson gson = new Gson();
         bm.hardAI = 1;
-        //bm.RandShips("AI");
+        bm.RandShips("comp");
         System.out.println(gson.toJson(bm));
         return gson.toJson(bm);
     }
@@ -52,7 +52,6 @@ public class Main {
         HardAI bm = new HardAI();
         Gson gson = new Gson();
         bm.hardAI = 0;
-        //bm.RandShips("AI");
         System.out.println(gson.toJson(bm));
         return gson.toJson(bm);
     }
