@@ -78,7 +78,7 @@ padding: 0px 10px 10px 10px;
     border-style: solid;
     border-width: 2px;
     border-radius: 5px;
-    border-color: #cccccc;
+    border-color: #e7e7e7;
     margin-top: 30px;
     height: 200px;
     width: 93%;
@@ -91,7 +91,7 @@ padding: 0px 10px 10px 10px;
 
 .controlRegion{
 width:140px;
-transform: translateY(-250%);
+transform: translateY(-500%);
 display:inline-block;
 }
 
@@ -134,7 +134,6 @@ button{
     display: inline-block;
     border-radius: 3px;
     border: none;
-    padding: 5px 5px 5px 5px;
 }
 
 button:hover:enabled{
@@ -505,10 +504,6 @@ footer:before {
 */
 
 .switch {
-
-    float: right;
-    margin-right:-140%;
-    margin-bottom: 5px;
     position: relative;
     height: 26px;
     width: 120px;
