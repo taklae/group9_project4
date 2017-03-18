@@ -1,4 +1,5 @@
 var gameModel;
+var gameOver = 0;
 //var randbutton=document.getElementById('user-select');
 
 var ship = class {
@@ -25,6 +26,8 @@ $( document ).ready(function() {
 
 function NewGame(){
 
+    gameOver = 0;
+
     for( var i = 0; i < 5; i++ ){
 
         ships[i].startAcross = 0;
@@ -33,8 +36,19 @@ function NewGame(){
         ships[i].endDown = 0;
     }
 
+    var mode;
+    if(document.getElementById("changeModeB").innerText == "Hard mode"){
+
+            mode = "/hardAI";
+    }
+    else{
+            mode = "/easyAI";
+    }
+
+
+
     var request = $.ajax({
-         url: "/newGame",
+         url: mode,
          method: "post",
          data: JSON.stringify(gameModel),
          contentType: "application/json; charset=utf-8",
@@ -50,6 +64,53 @@ function NewGame(){
        request.fail(function( jqXHR, textStatus ) {
          alert( "Request failed: " + textStatus );
        });
+
+}
+
+function changeMode(){
+
+    var mode;
+
+    gameOver = 0;
+    
+    for( var i = 0; i < 5; i++ ){
+
+        ships[i].startAcross = 0;
+        ships[i].endAcross = 0;
+        ships[i].startDown = 0;
+        ships[i].endDown = 0;
+    }
+
+    if(document.getElementById("changeModeB").innerText == "Easy mode"){
+
+        document.getElementById("changeModeB").innerText = "Hard mode";
+        document.getElementById("changeModeB").style.background = "#ff6535";
+        mode = "/hardAI";
+    }
+    else{
+
+        document.getElementById("changeModeB").innerText = "Easy mode";
+        document.getElementById("changeModeB").style.background = "#4CAF50";
+        mode = "/easyAI";
+    }
+
+    var request = $.ajax({
+        url: mode,
+        method: "post",
+        data: JSON.stringify(gameModel),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json"
+    });
+
+    request.done(function( currModel ) {
+        displayGameState(currModel);
+        gameModel = currModel;
+
+    });
+
+    request.fail(function( jqXHR, textStatus ) {
+        alert( "Request failed: " + textStatus );
+    });
 
 }
 
@@ -194,21 +255,18 @@ $( '#TheirBoard td'  ).css("background-color", "#42A5F5");
 if(gameModel.scanResult == 1){
 
     document.getElementById("mBox").innerHTML = "Scan found at least one ship!"
-    document.getElementById("mBox").style.color = "black";
-    document.getElementById("mBox").style.borderColor = "#FDD835";
+    document.getElementById("mBox").style.background = "#ffffa3";
 
 } else if (gameModel.scanResult == 0){
 
     document.getElementById("mBox").innerHTML = "Scan found no ships!"
-    document.getElementById("mBox").style.color = "black";
-    document.getElementById("mBox").style.borderColor = "#e7e7e7";
+    document.getElementById("mBox").style.background = "#ffffff";
 }
 
 if(gameModel.validPlace == 1){
 
     document.getElementById("mBox").innerHTML = "Invalid ship placement!";
-    document.getElementById("mBox").style.color = "#E64A19";
-    document.getElementById("mBox").style.borderColor = "#e7e7e7";
+    document.getElementById("mBox").style.background = "#ffffa3";
 
     gameModel.validPlace = 0;
 }
@@ -216,40 +274,39 @@ if(gameModel.validPlace == 1){
 if(gameModel.AllShipsPlaced>1)
 {
     document.getElementById("mBox").innerHTML = "All ships have been placed already!";
-    document.getElementById("mBox").style.color = "#E64A19";
-    document.getElementById("mBox").style.borderColor = "#e7e7e7";
+    document.getElementById("mBox").style.background = "#ffffa3";
 }
 
 if(gameModel.shipsHit == 1){
 
     document.getElementById("mBox").innerHTML = "Hit!";
     document.getElementById("mBox").style.color = "black";
-    document.getElementById("mBox").style.borderColor = "#FDD835";
+    document.getElementById("mBox").style.background = "#ffffa3";
 
 } else if (gameModel.shipsHit == 0){
 
     document.getElementById("mBox").innerHTML = "Miss.";
-    document.getElementById("mBox").style.color = "black";
-    document.getElementById("mBox").style.borderColor = "#e7e7e7";
+    document.getElementById("mBox").style.background = "#ffffff";
 }
 
 if(gameModel.repeatFire == 1){
 
     document.getElementById("mBox").innerHTML = "You have already fired at that location.";
-    document.getElementById("mBox").style.color = "#E64A19";
-    document.getElementById("mBox").style.borderColor = "#e7e7e7";
+    document.getElementById("mBox").style.background = "#ffffa3";
     gameModel.repeatFire = 0;
 }
 
 if(gameModel.isGameOver == 1) {
 
     document.getElementById("mBox").innerHTML = "You win!";
-    document.getElementById("mBox").style.borderColor = "#FDD835";
+    document.getElementById("mBox").style.background = "#ffffa3";
+    gameOver = 1;
 
 } else if (gameModel.isGameOver == 2){
 
     document.getElementById("mBox").innerHTML = "Computer wins!";
-    document.getElementById("mBox").style.borderColor = "#FDD835";
+    document.getElementById("mBox").style.background = "#ffffa3";
+    gameOver = 1;
 }
 
 
@@ -268,13 +325,17 @@ if( isShipPlacedModel(gameModel.aircraftCarrier) ||
 
     document.getElementById("newGame").disabled = false;
     document.getElementById("random").disabled = true;
-}
-else if( isShipPlacedModel(gameModel.aircraftCarrier) &&
- isShipPlacedModel(gameModel.battleship) &&
- isShipPlacedModel(gameModel.clipper) &&
- isShipPlacedModel(gameModel.dinghy) &&
- isShipPlacedModel(gameModel.submarine)){
 
+    if( isShipPlacedModel(gameModel.aircraftCarrier) &&
+     isShipPlacedModel(gameModel.battleship) &&
+     isShipPlacedModel(gameModel.clipper) &&
+     isShipPlacedModel(gameModel.dinghy) &&
+     isShipPlacedModel(gameModel.submarine) && gameModel.playerMisses.length == 0 && gameModel.playerHits.length == 0 ){
+
+         document.getElementById("mBox").innerHTML = "Click to fire on your opponent's board to begin the game!";
+         document.getElementById("mBox").style.background = "#ffffa3";
+
+    }
 }
 else{
 
@@ -451,6 +512,11 @@ function previewShip(coordinates, erase, place){
             ships[shipType].startDown   = startCoordDown;
             ships[shipType].endAcross   = endCoordAcross;
             ships[shipType].endDown     = endCoordDown;
+
+            var nextShip = (document.getElementById("shipSelec").selectedIndex+1)%5;
+            if( !isShipPlaced(nextShip) ){
+                document.getElementById("shipSelec").selectedIndex = (document.getElementById("shipSelec").selectedIndex+1)%5;
+            }
         }
 
      }
@@ -461,34 +527,36 @@ function previewShoot(coordinates, erase, shoot) {
     coordAcross = Number(coordinates[0]);
     coordDown = Number(coordinates[1]);
 
-    if (shoot) {
+    if( !gameOver ) {
 
-        if( isShipPlaced(0) && isShipPlaced(1) && isShipPlaced(2) && isShipPlaced(3) && isShipPlaced(4)){
+        if (shoot) {
 
-            if (document.getElementById("fire").checked == true)
-                fire(coordinates[0],coordinates[1]);
-            if (document.getElementById("scan").checked == true)
-                scan(coordinates[0],coordinates[1]);
-            return;
+            if( isShipPlaced(0) && isShipPlaced(1) && isShipPlaced(2) && isShipPlaced(3) && isShipPlaced(4)){
+
+                if (document.getElementById("fire").checked == true)
+                    fire(coordinates[0],coordinates[1]);
+                if (document.getElementById("scan").checked == true)
+                    scan(coordinates[0],coordinates[1]);
+                return;
+            }
+            else{
+
+                document.getElementById("mBox").innerHTML = "You must first place all your ships before you can fire or scan!";
+                document.getElementById("mBox").style.background = "#ffffa3";
+            }
         }
-        else{
 
-            document.getElementById("mBox").innerHTML = "You must first place all your ships before you can fire or scan!"
-            document.getElementById("mBox").style.color = "#E64A19";
-        }
-    }
+        if( !erase)
+            $( '#TheirBoard #'+coordAcross+'_'+coordDown  ).css("background-color", "#FDD835");
+        else {
+            $('#TheirBoard #' + coordAcross + '_' + coordDown).css("background-color", "#42A5F5");
 
-
-    if( !erase)
-        $( '#TheirBoard #'+coordAcross+'_'+coordDown  ).css("background-color", "#FDD835");
-    else {
-        $('#TheirBoard #' + coordAcross + '_' + coordDown).css("background-color", "#42A5F5");
-
-        for (var i = 0; i < gameModel.computerMisses.length; i++) {
-            $( '#TheirBoard #' + gameModel.computerMisses[i].Across + '_' + gameModel.computerMisses[i].Down ).css("background-color", "#4CAF50");
-        }
-        for (var i = 0; i < gameModel.computerHits.length; i++) {
-            $( '#TheirBoard #' + gameModel.computerHits[i].Across + '_' + gameModel.computerHits[i].Down ).css("background-color", "#E64A19");
+            for (var i = 0; i < gameModel.computerMisses.length; i++) {
+                $( '#TheirBoard #' + gameModel.computerMisses[i].Across + '_' + gameModel.computerMisses[i].Down ).css("background-color", "#4CAF50");
+            }
+            for (var i = 0; i < gameModel.computerHits.length; i++) {
+                $( '#TheirBoard #' + gameModel.computerHits[i].Across + '_' + gameModel.computerHits[i].Down ).css("background-color", "#E64A19");
+            }
         }
     }
 }
