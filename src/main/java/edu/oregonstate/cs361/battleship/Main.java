@@ -25,9 +25,9 @@ public class Main {
         post("/placeShip/:id/:row/:col/:orientation", (req, res) -> placeShip(req));
         //This will listen to POST requests for a new game, and then return a clean model
         post("/newGame", (req, res) -> newModel());
-        //This will listen to POST requests for a new game, and then return a clean model
+        //This will listen to POST requests for a new game, and then return a clean model for hard AI
         post("/hardAI", (req, res) -> hardAI());
-
+        //This will listen to POST requests for a new game, and then return a clean model for easy AI
         post("/easyAI", (req, res) -> easyAI());
     }
 
@@ -91,9 +91,9 @@ public class Main {
         else
             length = 1;
 
-        if(orientation.equals("vertical")  && length + Integer.parseInt(row) > 10)//check for out of bounds, vertically or horizontally
+        if(orientation.equals("vertical")  && (length-1) + Integer.parseInt(row) > 10)//check for out of bounds, vertically or horizontally
             return false;
-        else if(orientation.equals("horizontal") && length + Integer.parseInt(col) > 10)
+        else if(orientation.equals("horizontal") && (length-1) + Integer.parseInt(col) > 10)
             return false;
 
         if(orientation.equals("vertical")){//check for ship overlap before placing

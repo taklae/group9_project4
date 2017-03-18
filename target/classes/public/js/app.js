@@ -318,13 +318,17 @@ if( isShipPlacedModel(gameModel.aircraftCarrier) ||
 
     document.getElementById("newGame").disabled = false;
     document.getElementById("random").disabled = true;
-}
-else if( isShipPlacedModel(gameModel.aircraftCarrier) &&
- isShipPlacedModel(gameModel.battleship) &&
- isShipPlacedModel(gameModel.clipper) &&
- isShipPlacedModel(gameModel.dinghy) &&
- isShipPlacedModel(gameModel.submarine)){
 
+    if( isShipPlacedModel(gameModel.aircraftCarrier) &&
+     isShipPlacedModel(gameModel.battleship) &&
+     isShipPlacedModel(gameModel.clipper) &&
+     isShipPlacedModel(gameModel.dinghy) &&
+     isShipPlacedModel(gameModel.submarine) && gameModel.playerMisses.length == 0 && gameModel.playerHits.length == 0 ){
+
+         document.getElementById("mBox").innerHTML = "Click to fire on your opponent's board to begin the game!";
+         document.getElementById("mBox").style.background = "#ffffa3";
+
+    }
 }
 else{
 
