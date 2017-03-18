@@ -53,7 +53,7 @@ public class HardAI extends BattleshipModel {
                     searchHit.setAcross(1);
                     direction = 1;
                     hitSearch = 0;
-                    inc = 1;
+                    inc = 0;
                 }
                 playerShot(searchHit);
             }
@@ -104,7 +104,7 @@ public class HardAI extends BattleshipModel {
                 inc = 1;
             }else{
                 direction = 1;
-                inc = 1;
+                inc = 0;
                 hitSearch = 0;
                 System.out.println("ending targeted fire, returning to random");
             }
