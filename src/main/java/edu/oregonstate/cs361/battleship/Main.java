@@ -154,7 +154,6 @@ public class Main {
 
         currModel.isGameOver = currModel.checkWin(currModel.computerHits, currModel.playerHits);
         //Gson gson = new Gson();
-        System.out.println(currModel);
         return gson.toJson(currModel);
     }
 
