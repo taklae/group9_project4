@@ -1,4 +1,5 @@
 var gameModel;
+var gameOver = 0;
 //var randbutton=document.getElementById('user-select');
 
 var ship = class {
@@ -24,6 +25,8 @@ $( document ).ready(function() {
 });
 
 function NewGame(){
+
+    gameOver = 0;
 
     for( var i = 0; i < 5; i++ ){
 
@@ -68,6 +71,8 @@ function changeMode(){
 
     var mode;
 
+    gameOver = 0;
+    
     for( var i = 0; i < 5; i++ ){
 
         ships[i].startAcross = 0;
@@ -295,11 +300,13 @@ if(gameModel.isGameOver == 1) {
 
     document.getElementById("mBox").innerHTML = "You win!";
     document.getElementById("mBox").style.background = "#ffffa3";
+    gameOver = 1;
 
 } else if (gameModel.isGameOver == 2){
 
     document.getElementById("mBox").innerHTML = "Computer wins!";
     document.getElementById("mBox").style.background = "#ffffa3";
+    gameOver = 1;
 }
 
 
@@ -520,34 +527,36 @@ function previewShoot(coordinates, erase, shoot) {
     coordAcross = Number(coordinates[0]);
     coordDown = Number(coordinates[1]);
 
-    if (shoot) {
+    if( !gameOver ) {
 
-        if( isShipPlaced(0) && isShipPlaced(1) && isShipPlaced(2) && isShipPlaced(3) && isShipPlaced(4)){
+        if (shoot) {
 
-            if (document.getElementById("fire").checked == true)
-                fire(coordinates[0],coordinates[1]);
-            if (document.getElementById("scan").checked == true)
-                scan(coordinates[0],coordinates[1]);
-            return;
+            if( isShipPlaced(0) && isShipPlaced(1) && isShipPlaced(2) && isShipPlaced(3) && isShipPlaced(4)){
+
+                if (document.getElementById("fire").checked == true)
+                    fire(coordinates[0],coordinates[1]);
+                if (document.getElementById("scan").checked == true)
+                    scan(coordinates[0],coordinates[1]);
+                return;
+            }
+            else{
+
+                document.getElementById("mBox").innerHTML = "You must first place all your ships before you can fire or scan!";
+                document.getElementById("mBox").style.background = "#ffffa3";
+            }
         }
-        else{
 
-            document.getElementById("mBox").innerHTML = "You must first place all your ships before you can fire or scan!";
-            document.getElementById("mBox").style.background = "#ffffa3";
-        }
-    }
+        if( !erase)
+            $( '#TheirBoard #'+coordAcross+'_'+coordDown  ).css("background-color", "#FDD835");
+        else {
+            $('#TheirBoard #' + coordAcross + '_' + coordDown).css("background-color", "#42A5F5");
 
-
-    if( !erase)
-        $( '#TheirBoard #'+coordAcross+'_'+coordDown  ).css("background-color", "#FDD835");
-    else {
-        $('#TheirBoard #' + coordAcross + '_' + coordDown).css("background-color", "#42A5F5");
-
-        for (var i = 0; i < gameModel.computerMisses.length; i++) {
-            $( '#TheirBoard #' + gameModel.computerMisses[i].Across + '_' + gameModel.computerMisses[i].Down ).css("background-color", "#4CAF50");
-        }
-        for (var i = 0; i < gameModel.computerHits.length; i++) {
-            $( '#TheirBoard #' + gameModel.computerHits[i].Across + '_' + gameModel.computerHits[i].Down ).css("background-color", "#E64A19");
+            for (var i = 0; i < gameModel.computerMisses.length; i++) {
+                $( '#TheirBoard #' + gameModel.computerMisses[i].Across + '_' + gameModel.computerMisses[i].Down ).css("background-color", "#4CAF50");
+            }
+            for (var i = 0; i < gameModel.computerHits.length; i++) {
+                $( '#TheirBoard #' + gameModel.computerHits[i].Across + '_' + gameModel.computerHits[i].Down ).css("background-color", "#E64A19");
+            }
         }
     }
 }
