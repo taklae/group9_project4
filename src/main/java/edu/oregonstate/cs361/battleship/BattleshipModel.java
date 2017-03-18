@@ -237,6 +237,10 @@ public class BattleshipModel {
         }
     }
 
+    public int getScanResult() {
+        return scanResult;
+    }
+
     public void  RandShips(String who) {
         int[][] board = new int[10][10];
         int lengths[] = {2, 1, 3, 4, 5};

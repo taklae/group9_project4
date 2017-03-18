@@ -17,6 +17,9 @@ public class Ship {
         end = e;
     }
 
+    public String getName() {
+        return name;
+    }
 
     public void setLocation(Coordinate s, Coordinate e) {
         start = s;
